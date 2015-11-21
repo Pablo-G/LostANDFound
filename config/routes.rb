@@ -1,4 +1,12 @@
+# coding: utf-8
+
 Rails.application.routes.draw do
+
+  
+  # Un ejemplo de cómo crear rutas para páginas "estáticas"
+  get '/ejemplo', to: 'pages#ejemplo'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
