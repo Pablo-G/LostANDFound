@@ -8,6 +8,14 @@
 </head>
 <body>
 
+  <% if current_user %>
+    <%= current_user.name %></br>
+    <%= link_to 'Salir', sign_out_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Registro', new_user_path %>
+    <%= link_to 'Entrar', sign_in_path %>
+  <% end %>
+
 <%= yield %>
 
 </body>

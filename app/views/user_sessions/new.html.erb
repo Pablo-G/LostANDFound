@@ -1,0 +1,19 @@
+<h1>Inicio de sesión</h1>
+
+<%= form_for @user_session do |f| %>
+
+  <%# shared/errors muestra los errores encontrados en un
+    # objeto dado, en este caso @user_session %>
+  <%= render 'shared/errors', object: @user_session %>
+  
+  <%= f.label :email, "Correo Electrónico" %>
+  <%= f.email_field :email %>
+  </br>
+
+  <%= f.label :password, "Contraseña" %>
+  <%= f.password_field :password %>
+  </br>
+
+  <%= f.submit "Iniciar sesión" %>
+
+<% end %>

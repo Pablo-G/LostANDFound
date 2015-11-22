@@ -1,3 +1,4 @@
+# coding: utf-8
 source 'https://rubygems.org'
 
 
@@ -43,3 +44,6 @@ group :development, :test do
   # gem 'spring'
 end
 
+
+# Usa Authlogic para la autenticación
+gem 'authlogic'

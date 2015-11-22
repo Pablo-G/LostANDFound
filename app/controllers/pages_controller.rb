@@ -10,6 +10,6 @@
 # dentro de app/views/pages y agregar la ruta en config/routes.rb
 # con `get '<r>', to: 'pages#<r>'`
 class PagesController < ApplicationController
-  def ejemplo
+  def index
   end
 end

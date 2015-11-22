@@ -1,12 +1,22 @@
 # coding: utf-8
 
 Rails.application.routes.draw do
-
+  
+  resources :users, only: [:new, :create]
+  resources :user_sessions, only: :create
+  
+  # Define las rutas para iniciar y cerrar sesión, y
+  # las hace accesibles mediante sign_[out/in]_path
+  delete '/sign_out', to: 'user_sessions#destroy', as: :sign_out
+  get '/sign_in', to: 'user_sessions#new', as: :sign_in
   
   # Un ejemplo de cómo crear rutas para páginas "estáticas"
-  get '/ejemplo', to: 'pages#ejemplo'
-  
-  
+  # get '/ejemplo', to: 'pages#ejemplo'
+
+  # Define la raiz
+  root 'pages#index'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
