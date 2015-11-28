@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121040526) do
+ActiveRecord::Schema.define(version: 20151128050637) do
+
+  create_table "lost_objects", force: :cascade do |t|
+    t.string  "name"
+    t.string  "type"
+    t.string  "location"
+    t.text    "description"
+    t.integer "userID"
+    t.boolean "state"
+    t.date    "dateAdded"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

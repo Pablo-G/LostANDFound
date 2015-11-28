@@ -1,0 +1,27 @@
+<h1>Alta de objetos perdidos</h1>
+
+<%= form_for @lost_object do |f| %>
+
+  <%# shared/errors muestra los errores encontrados en un
+  # objeto dado, en este caso @lost_object %>
+  <%= render 'shared/errors', object: @lost_object %>
+  
+  <%= f.label :name, "Nombre" %>
+  <%= f.text_field :name %>
+  </br>
+  
+  <%= f.label :type, "Tipo" %>
+  <%= f.text_field :type %>
+  </br>
+
+  <%= f.label :location, "Ubicación" %>
+  <%= f.text_field :location %>
+  </br>
+
+  <%= f.label :description, "Breve descripción" %>
+  <%= f.text_area :description %>
+  </br>
+  
+  <%= f.submit "Dar de alta" %>
+  
+<% end %>
