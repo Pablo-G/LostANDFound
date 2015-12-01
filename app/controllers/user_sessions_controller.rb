@@ -6,7 +6,11 @@ class UserSessionsController < ApplicationController
   # Crea una nueva sesión, la vista asociada es la pantalla
   # de inicio de sesión.
   def new
-    @user_session = UserSession.new
+    if current_user_session
+      redirect_to root_path
+    else
+      @user_session = UserSession.new
+    end
   end
 
   # Inicia sesión
