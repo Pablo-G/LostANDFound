@@ -15,8 +15,9 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(user_session_params)
 
     if @user_session.save      
-      # Hay que cambiarlo para que redirija a la página anterior
-      redirect_to root_path
+      # Por ahora se redirige a la página de inicio del usuario que accede.
+      # En teoría habría que regresar a la página anterior
+      redirect_to session_index_path
     else
       render :new
     end

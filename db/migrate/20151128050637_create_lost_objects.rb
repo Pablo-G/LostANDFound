@@ -1,8 +1,12 @@
 class CreateLostObjects < ActiveRecord::Migration
+  def self.up
+    rename_table :type, :category
+  end
+  
   def change
     create_table :lost_objects do |t|
       t.string :name
-      t.string :type
+      t.string :category
       t.string :location
       t.text :description
       t.integer :userID

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   # Define la raiz
   root 'pages#index'
+  
+  get '/session_index', to: 'pages#session_index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

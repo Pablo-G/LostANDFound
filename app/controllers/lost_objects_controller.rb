@@ -11,7 +11,7 @@ class LostObjectsController < ApplicationController
 
     if @lost_object.save            
       
-      redirect_to root_path
+      redirect_to session_index_path
     else                     
       render :new            
     end
@@ -21,7 +21,7 @@ class LostObjectsController < ApplicationController
 
   # Método auxiliar que filtra los atributos permitidos en un LostObject
   def lost_objects_params
-    params.require(:lost_object).permit(:name, :type, :location, :description)
+    params.require(:lost_object).permit(:name, :category, :location, :description)
   end
   
 end

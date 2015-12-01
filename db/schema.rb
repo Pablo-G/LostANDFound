@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20151128050637) do
 
   create_table "lost_objects", force: :cascade do |t|
     t.string  "name"
-    t.string  "type"
+    t.string  "category"
     t.string  "location"
     t.text    "description"
     t.integer "userID"
