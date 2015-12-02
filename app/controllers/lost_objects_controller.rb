@@ -1,5 +1,16 @@
+# coding: utf-8
 # Controlador para agregar objetos
 class LostObjectsController < ApplicationController
+
+  # Muestra todos los objetos
+  # Es temporal mientras se implementan búsquedas
+  def index
+    @lost_objects = LostObject.all
+  end
+
+  def show
+    @lost_object = LostObject.find(params[:id])
+  end
   
   def new
     @lost_object = LostObject.new
@@ -21,7 +32,9 @@ class LostObjectsController < ApplicationController
 
   # Método auxiliar que filtra los atributos permitidos en un LostObject
   def lost_objects_params
-    params.require(:lost_object).permit(:name, :category, :location, :description)
+    params.require(:lost_object).permit(:name, :category,
+                                        :location, :description,
+                                        :image)
   end
   
 end

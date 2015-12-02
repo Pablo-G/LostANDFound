@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:new, :create]
   resources :user_sessions, only: :create
-  resources :lost_objects
+  resources :lost_objects, except: :destroy
   
   # Define las rutas para iniciar y cerrar sesión, y
   # las hace accesibles mediante sign_[out/in]_path

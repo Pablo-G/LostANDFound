@@ -1,0 +1,5 @@
+<p><%= @lost_object.name %></p>
+<p><%= @lost_object.description %></p>
+<p><strong>Encontrado en:</strong> <%= @lost_object.location %></p>
+<%= link_to image_tag(@lost_object.image.url(:original)),
+                      @lost_object.image.url, target: '_blank' %>
