@@ -14,8 +14,9 @@
   <%= f.text_field :category %>
   </br>
 
-  <%= f.label :location, "Ubicación" %>
-  <%= f.text_field :location %>
+  <%= f.label :location_id, "Ubicación" %>
+  <%= f.select :location_id,
+      options_for_select(Location.all.map { |l| [l.name, l.id] }) %>
   </br>
 
   <%= f.label :description, "Breve descripción" %>

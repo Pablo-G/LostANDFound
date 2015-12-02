@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202170939) do
+ActiveRecord::Schema.define(version: 20151202184107) do
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "locations", ["parent_id"], name: "index_locations_on_parent_id"
 
   create_table "lost_objects", force: :cascade do |t|
     t.string   "name"
     t.string   "category"
-    t.string   "location"
     t.text     "description"
     t.integer  "userID"
     t.boolean  "state"
@@ -27,6 +35,7 @@ ActiveRecord::Schema.define(version: 20151202170939) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "location_id"
   end
 
   create_table "users", force: :cascade do |t|

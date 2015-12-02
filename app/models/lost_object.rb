@@ -11,4 +11,5 @@ class LostObject < ActiveRecord::Base
                                                       "image/gif",
                                                       "image/png"] },
                        size: { in: 0..500.kilobytes }
+  belongs_to :location
 end

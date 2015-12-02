@@ -27,13 +27,20 @@ class LostObjectsController < ApplicationController
       render :new            
     end
   end
+
+  def destroy
+    @lost_object = LostObject.find(params[:id])
+    @lost_object.destroy
+
+    redirect_to lost_objects_path
+  end
   
   private
 
   # Método auxiliar que filtra los atributos permitidos en un LostObject
   def lost_objects_params
     params.require(:lost_object).permit(:name, :category,
-                                        :location, :description,
+                                        :location_id, :description,
                                         :image)
   end
   
