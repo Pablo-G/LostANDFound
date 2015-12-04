@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:new, :create]
   resources :user_sessions, only: :create
+  resources :lost_objects
   
   # Define las rutas para iniciar y cerrar sesión, y
   # las hace accesibles mediante sign_[out/in]_path
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
 
   # Define la raiz
   root 'pages#index'
+  
+  get '/session_index', to: 'pages#session_index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -12,4 +12,7 @@
 class PagesController < ApplicationController
   def index
   end
+  
+  def session_index
+  end
 end

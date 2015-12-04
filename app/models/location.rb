@@ -1,0 +1,36 @@
+# coding: utf-8
+class Location < ActiveRecord::Base
+  has_many :childs, class_name: "Location", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "Location"
+  validates :name, presence: true
+  has_many :lost_objects
+
+  # Genera una lista con todos los lugares que podrían ser este,
+  # por la contención en cualquier sentido
+  def related
+    return descendants + [self] + ancestors
+  end
+
+  
+  protected
+
+  # Genera una lista con los descendientes de este lugar
+  def descendants
+    res = childs
+    childs.each do |c|
+      res = c.descendants + res
+    end
+    return res
+  end
+
+  # Genera una lista con los ancestros de este lugar
+  def ancestors
+    res = []
+    current = parent
+    while current
+      res << current
+      current = current.parent
+    end
+    return res
+  end
+end
