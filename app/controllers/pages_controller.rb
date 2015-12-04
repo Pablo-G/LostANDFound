@@ -11,6 +11,7 @@
 # con `get '<r>', to: 'pages#<r>'`
 class PagesController < ApplicationController
   def index
+    render layout: "main"
   end
   
   def session_index

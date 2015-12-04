@@ -13,25 +13,42 @@ class LostObjectsController < ApplicationController
   end
   
   def new
-    @lost_object = LostObject.new
+    if current_user
+      @lost_object = LostObject.new
+    else
+      redirect_to sign_in_path
+    end
   end
   
   #Crea un nuevo objeto
   def create
-    @lost_object = LostObject.new(lost_objects_params)
+    if current_user
+      @lost_object = LostObject.new(lost_objects_params)
+      @lost_object.user = current_user
+      @lost_object.state = false # No se ha devuelto
+      @lost_object.date_added = DateTime.now
 
-    if @lost_object.save            
-      
-      redirect_to session_index_path
-    else                     
-      render :new            
+      if @lost_object.save            
+        redirect_to lost_object_path(@lost_object)
+      else                     
+        render :new
+      end
+    else
+      redirect_to sign_in_path
     end
   end
 
   def destroy
-    @lost_object = LostObject.find(params[:id])
-    @lost_object.destroy
+    if !current_user
+      redirect_to sign_in_path and return
+    end
 
+    @lost_object = LostObject.find(params[:id])
+    if current_user != @lost_object.user
+      render :show, status: :forbidden and return
+    end
+    
+    @lost_object.destroy
     redirect_to lost_objects_path
   end
   

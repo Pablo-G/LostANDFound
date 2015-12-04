@@ -1,9 +1,14 @@
+<% content_for :title do %>
+  <%= @lost_object.name %>
+<% end %>
+
 <p><%= @lost_object.name %></p>
 <p><%= @lost_object.description %></p>
 <p>
   <strong>Encontrado en:</strong>
   <%= @lost_object.location.name if @lost_object.location %>
 </p>
+<p>Enviado por <%= @lost_object.user.name %></p>
 <%= link_to image_tag(@lost_object.image.url(:original)),
                       @lost_object.image.url, target: '_blank' %>
 <p><%= link_to 'Eliminar', @lost_object, method: :delete,

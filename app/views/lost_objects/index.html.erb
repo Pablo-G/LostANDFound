@@ -1,3 +1,5 @@
-<% @lost_objects.each do |obj| %>
-  <%= render 'lost_objects/lost_object', obj: obj %>
+<% content_for :title do %>
+  Objetos perdidos
 <% end %>
+
+<%= render @lost_objects  %>

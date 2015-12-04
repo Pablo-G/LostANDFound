@@ -4,12 +4,16 @@ class LostObject < ActiveRecord::Base
                               original: ["500x500>", :jpg] },
                     convert_options: { thumb: "-strip",
                                        original: "-strip" },
-                    url: "/system/:hash.:extension",
+                    url: "/images/:style/:hash.:extension",
+                    default_url: "/images/:style/missing.jpg",
                     hash_secret: "5bb726e0749f58e322dd5d3d6579e3e5a75"
-  validates_attachment :image, presence: true,
+  validates_attachment :image,
                        content_type: { content_type: ["image/jpeg",
                                                       "image/gif",
                                                       "image/png"] },
                        size: { in: 0..500.kilobytes }
   belongs_to :location
+  belongs_to :user
+
+  validates :user, presence: true
 end

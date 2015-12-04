@@ -1,7 +1,7 @@
-<p><%= link_to obj.name, lost_object_path(obj) %></p>
-<p><%= obj.description %></p>
+<p><%= link_to lost_object.name, lost_object_path(lost_object) %></p>
+<p><%= lost_object.description %></p>
 <p>
   <strong>Encontrado en:</strong>
-  <%= obj.location.name if obj.location %>
+  <%= lost_object.location.name if lost_object.location %>
 </p>
-<%= link_to image_tag(obj.image.url(:thumb)), obj.image.url, target: '_blank' %>
+<%= link_to image_tag(lost_object.image.url(:thumb)), lost_object.image.url, target: '_blank' %>

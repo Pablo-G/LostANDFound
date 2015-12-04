@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202184107) do
+ActiveRecord::Schema.define(version: 20151204020128) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20151202184107) do
     t.string   "name"
     t.string   "category"
     t.text     "description"
-    t.integer  "userID"
+    t.integer  "user_id"
     t.boolean  "state"
-    t.date     "dateAdded"
+    t.date     "date_added"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "image_file_name"

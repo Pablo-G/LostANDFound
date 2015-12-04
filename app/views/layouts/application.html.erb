@@ -1,26 +1,39 @@
+<%# Este layout se usa para toda la aplicación, se divide en varias
+partes:
+- Un encabezado con una barra de búsqueda y enlaces para manejo de sesión
+- Un pie de página con enlaces a otras partes de la aplicación
+- Una barra lateral con enlaces para agregar objetos a la que se le
+puede agregar contenido.
+- El cuerpo de la página
+%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LostANDFound</title>
+  <title><%= yield :title %> | LostANDFound</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-  <ul>
-  <% if current_user %>
-    <li><%= current_user.name %></li>
-    <li><%= link_to 'Salir', sign_out_path, method: :delete %></li>
-    <li><%= link_to 'Dar de alta objeto', new_lost_object_path %></li>
-  <% else %>
-    <li><%= link_to 'Registro', new_user_path %></li>
-    <li><%= link_to 'Entrar', sign_in_path %></li>
-  <% end %>
-  <li><%= link_to 'Objetos', lost_objects_path %></li>
-  </ul>
+  <%# los colores y texto sólo son para disinguir cada parte por
+  el momento (porque no están acomodadas como deberían) %>
+  <div style="background-color:#DDDDDD">
+    <%= render 'shared/header' %>
+  </div>
 
-<%= yield %>
+  <div style="background-color:#EEEEEE">
+    <%= render 'shared/sidebar' %>
+    <%= yield :sidebar %>
+  </div>
+
+  <div style="background-color:#CCCCCC">
+    <%= yield %>
+  </div>
+  
+  <div style="background-color:#BBBBBB">
+    <%= render 'shared/footer' %>
+  </div>
 
 </body>
 </html>
