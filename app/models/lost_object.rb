@@ -1,3 +1,4 @@
+# coding: utf-8
 class LostObject < ActiveRecord::Base
   has_attached_file :image,
                     styles: { thumb: ["100x100#", :jpg],
@@ -16,4 +17,10 @@ class LostObject < ActiveRecord::Base
   belongs_to :user
 
   validates :user, presence: true
+
+  # Determina si el usuario dado tiene permisos de edición
+  # sobre el objeto
+  def authorized?(u)
+    u && (u == user || u.is_mod?)
+  end
 end

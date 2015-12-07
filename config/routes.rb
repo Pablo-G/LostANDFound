@@ -2,14 +2,8 @@
 
 Rails.application.routes.draw do
   
-  resources :users, only: [:new, :create]
   resources :user_sessions, only: :create
   resources :lost_objects
-  
-  # Define las rutas para iniciar y cerrar sesión, y
-  # las hace accesibles mediante sign_[out/in]_path
-  delete '/sign_out', to: 'user_sessions#destroy', as: :sign_out
-  get '/sign_in', to: 'user_sessions#new', as: :sign_in
   
   # Un ejemplo de cómo crear rutas para páginas "estáticas"
   # get '/ejemplo', to: 'pages#ejemplo'
@@ -18,6 +12,20 @@ Rails.application.routes.draw do
   root 'pages#index'
   
   get '/session_index', to: 'pages#session_index'
+
+
+  # Rutas para manejo de usuario
+  # Iniciar/Cerrar sesión:
+  delete '/sign_out', to: 'user_sessions#destroy'
+  get '/sign_in', to: 'user_sessions#new'
+  # Registro:
+  get '/register', to: 'users#new', as: :new_user
+  post '/register', to: 'users#create'
+  get '/profile', to: 'users#show', as: :user
+  get '/profile/edit', to: 'users#edit', as: :edit_user
+  match '/profile', to: 'users#update', via: [:put, :patch]
+  match '/profile/update_password', to: 'users#update_password',
+        via: [:put, :patch], as: :update_password
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,7 +1,24 @@
+# coding: utf-8
+
 # Modelo que representa a un usuario
 class User < ActiveRecord::Base
   acts_as_authentic             # Para Authlogic
   validates :name, presence: true
   validates :email, presence: true
   has_many :lost_objects
+
+  # Constantes para los distintos roles.
+  # Los valores están ordenados según privilegios
+  USER  = 0
+  MOD   = 1
+  ADMIN = 2
+
+  def is_mod?
+    role >= MOD                 # Un administrador también es moderador
+  end
+  
+  def is_admin?
+    role == ADMIN
+  end
+  
 end

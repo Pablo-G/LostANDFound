@@ -44,12 +44,13 @@ class LostObjectsController < ApplicationController
     end
 
     @lost_object = LostObject.find(params[:id])
-    if current_user != @lost_object.user
+    if @lost_object.authorized? current_user
+      @lost_object.destroy
+      redirect_to lost_objects_path
+    else
       render :show, status: :forbidden and return
     end
     
-    @lost_object.destroy
-    redirect_to lost_objects_path
   end
   
   private
