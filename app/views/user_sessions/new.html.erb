@@ -1,23 +1,57 @@
 <% content_for :title do %>
-  Inicio de sesión
+  Login
 <% end %>
 
-<h1>Inicio de sesión</h1>
+<section id="form"><!--form-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-1">
+        <div class="login-form"><!--login form-->
+          <h2>Login to your account</h2>
+          <%= form_for @user_session do |f| %>
+            <%# shared/errors muestra los errores encontrados en un
+              # objeto dado, en este caso @user_session %>
+            <%= render 'shared/errors', object: @user_session %>
+            <!--<%= f.label :email, "Correo Electrónico" %>-->
+            <%= f.email_field :email, :placeholder => "Email address" %>
+            </br>
+            <!--<%= f.label :password, "Contraseña" %>-->
+            <%= f.password_field :password, :placeholder => "Password" %>
+            </br>  
 
-<%= form_for @user_session do |f| %>
+            <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
+              Login
+            <% end %>
+          <% end %>
+        </div><!--/login form-->
+      </div>
+      <div class="col-sm-1">
+        <h2 class="or">OR</h2>
+      </div>
+      <div class="col-sm-4">
+        <div class="signup-form"><!--sign up form-->
+          <h2>New User Signup!</h2>
+          <form action="#">
+            <input type="text" placeholder="Name"/>
+            <input type="email" placeholder="Email Address"/>
+            <input type="password" placeholder="Password"/>
+            <button type="submit" class="btn btn-default">Signup</button>
+          </form>
+        </div><!--/sign up form-->
+      </div>
+    </div>
+  </div>
+</section><!--/form-->
 
-  <%# shared/errors muestra los errores encontrados en un
-    # objeto dado, en este caso @user_session %>
-  <%= render 'shared/errors', object: @user_session %>
-  
-  <%= f.label :email, "Correo Electrónico" %>
-  <%= f.email_field :email %>
-  </br>
 
-  <%= f.label :password, "Contraseña" %>
-  <%= f.password_field :password %>
-  </br>
+<footer id="footer"><!--Footer-->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <p class="pull-left">Copyright © 2015 Lost And Found. All rights reserved.</p>
+        <p class="pull-right">Designed by <span>someone.</span></p>
+      </div>
+    </div>
+  </div>
 
-  <%= f.submit "Iniciar sesión" %>
-
-<% end %>
+</footer><!--/Footer-->

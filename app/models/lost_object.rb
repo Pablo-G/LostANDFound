@@ -1,6 +1,6 @@
 class LostObject < ActiveRecord::Base
   has_attached_file :image,
-                    styles: { thumb: ["100x100#", :jpg],
+                    styles: { thumb: ["268x249#", :jpg],
                               original: ["500x500>", :jpg] },
                     convert_options: { thumb: "-strip",
                                        original: "-strip" },

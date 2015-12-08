@@ -21,10 +21,18 @@ class UsersController < ApplicationController
       
       # Regresa a la raiz
       # Hay que cambiarlo para que redirija a la página de donde vino.
+      UserMailer.validation_email(@user).deliver_now
       redirect_to root_path
     else                     # Si no se guardó
       render :new            # Vuelve a mostrar new
     end
+  end
+
+  # Método de validación de usuario
+  def validate
+    @user = User.find(params[:id])
+    @user.update_attribute(:validated, true)
+    redirect_to root_path
   end
 
   private
@@ -34,4 +42,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :gender, :age,
                                  :password, :password_confirmation)
   end
+
+
 end

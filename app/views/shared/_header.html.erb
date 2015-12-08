@@ -1,1 +1,21 @@
-<%= render 'shared/session' %>
+<header id="header"><!--header-->
+	<div class="header-middle"><!--header-middle-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="logo pull-left">
+						<%= link_to image_tag("logo.png"), root_path %>
+					</div>
+					<div class="btn-group pull-right">
+					</div>
+				</div>
+					<div class="col-sm-8 header-middle-margin">
+					<div class="search_box pull-left">
+						<input type="text" placeholder="Search"/>
+					</div>
+					<%= render 'shared/session' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
