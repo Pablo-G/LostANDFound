@@ -2,4 +2,13 @@
   Objetos perdidos
 <% end %>
 
-<%= render @lost_objects  %>
+<%= form_tag(lost_objects_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Buscar objetos" %>
+<%= submit_tag "Buscar" %>
+<% end %>
+
+<% if @lost_objects.present? %>
+  <%= render @lost_objects %>
+<% else %>
+  <p>No hay objetos que contengan los términos <%= params[:search] %>.</p>
+<% end %>

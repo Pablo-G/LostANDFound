@@ -23,4 +23,14 @@ class LostObject < ActiveRecord::Base
   def authorized?(u)
     u && (u == user || u.is_mod?)
   end
+  
+  # Busquedas simples
+  def self.search(search)
+    where("name LIKE ? 
+    OR category LIKE ? 
+    OR description LIKE ?",
+    "%#{search}%", 
+    "%#{search}%",
+    "%#{search}%")
+  end
 end
