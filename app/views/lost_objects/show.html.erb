@@ -10,7 +10,7 @@
   <%= @lost_object.location.name if @lost_object.location %>
 </p>
 
-
+<% if false %>
 <strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
 
 <% specific = @lost_object.specific %>
@@ -30,7 +30,7 @@
     specific.cracked_screen %>
   Tiene la pantalla rota.</br>
 <% end %>
-
+<% end %>
 
 <p>Enviado por <%= @lost_object.user.name %></p>
 <%= link_to image_tag(@lost_object.image.url(:original)),

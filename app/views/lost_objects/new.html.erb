@@ -26,7 +26,8 @@
   <%= f.label :image, "Imagen" %>
   <%= f.file_field :image %>
   </br>
-
+  <% if false %>
+<!--
   <%= f.label :actable_type, "Tipo" %>
   <%= f.select :actable_type,
   options_for_select(LostObject.types, :other) %>
@@ -55,7 +56,8 @@
   <%= f.check_box :cracked_screen %>
   </br>
   
-  
+  -->
+  <% end %> 
   <%= f.submit "Dar de alta" %>
   
 <% end %>

@@ -11,8 +11,11 @@
 				</div>
 					<div class="col-sm-8 header-middle-margin">
 					<div class="search_box pull-left">
-						<input type="text" placeholder="Search"/>
+						<%= form_tag(lost_objects_path, :method => "get", id: "search-form") do %>
+      					<%= text_field_tag :search, params[:search], placeholder: "Buscar objetos" %>
 					</div>
+      					<!--<%= submit_tag "Buscar" %>-->
+      					<% end %>
 					<%= render 'shared/session' %>
 				</div>
 			</div>

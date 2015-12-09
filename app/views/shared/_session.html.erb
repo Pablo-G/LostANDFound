@@ -1,15 +1,16 @@
-<% if current_user %>
-  <p><%= link_to current_user.name, user_path %>
-    <%= "(Administrador)" if current_user.is_admin? %>
-    <%= "(Moderador)" if !current_user.is_admin? && current_user.is_mod?%>
-    | <%= link_to 'Salir', sign_out_path, method: :delete %></p>
-    
-<% else %>
-  <p><%= link_to 'Iniciar sesión', sign_in_path %> |
-    <%= link_to 'Crear cuenta', register_path %> |</p>
-<% end %>
-
-<%= form_tag(lost_objects_path, :method => "get", id: "search-form") do %>
-      <%= text_field_tag :search, params[:search], placeholder: "Buscar objetos" %>
-      <%= submit_tag "Buscar" %>
-      <% end %>
+<div class="shop-menu pull-right">
+  <ul class="nav navbar-nav">
+    <% if current_user %>
+      <li><%= link_to 'Found an object?', new_lost_object_path %></li>
+      <li><%= link_to 'Log out', sign_out_path, method: :delete %>
+    <% else %>
+	<li>
+	  <!--<a href="login.html" class="active"><i class="fa fa-lock"></i> Login</a>-->
+	  <%= link_to 'Login', sign_in_path %>
+	</li>
+	<li>
+	  <%= link_to 'Create account, bitch!', new_user_path %>
+	</li>
+    <% end %>
+  </ul>
+</div>
