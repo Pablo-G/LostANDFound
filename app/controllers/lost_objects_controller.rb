@@ -6,6 +6,11 @@ class LostObjectsController < ApplicationController
   # Es temporal mientras se implementan búsquedas
   def index
     @lost_objects = LostObject.all
+    if params[:search]
+      @lost_objects = LostObject.search(params[:search]).order("name")
+    else
+      @lost_objects = LostObject.all.order('name')
+    end
   end
 
   def show

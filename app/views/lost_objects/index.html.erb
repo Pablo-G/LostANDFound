@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Objetos perdidos
+<% end %>
+
+<% if @lost_objects.present? %>
+  <%= render @lost_objects %>
+<% else %>
+  <p>No hay objetos que contengan los términos <%= params[:search] %>.</p>
+<% end %>

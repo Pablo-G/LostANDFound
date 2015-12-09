@@ -1,0 +1,15 @@
+<% if current_user %>
+  <p><%= link_to current_user.name, user_path %>
+    <%= "(Administrador)" if current_user.is_admin? %>
+    <%= "(Moderador)" if !current_user.is_admin? && current_user.is_mod?%>
+    | <%= link_to 'Salir', sign_out_path, method: :delete %></p>
+    
+<% else %>
+  <p><%= link_to 'Iniciar sesión', sign_in_path %> |
+    <%= link_to 'Crear cuenta', register_path %> |</p>
+<% end %>
+
+<%= form_tag(lost_objects_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Buscar objetos" %>
+      <%= submit_tag "Buscar" %>
+      <% end %>
