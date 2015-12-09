@@ -20,5 +20,16 @@ class User < ActiveRecord::Base
   def is_admin?
     role == ADMIN
   end
-  
+
+  def deliver_verification_instructions!
+    reset_perishable_token!
+    UserMailer.verification_instructions(self).deliver_now
+  end
+
+  def verify!
+    self.verified = true;
+    self.save
+    UserSession.create(self)
+  end
+
 end

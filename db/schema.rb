@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209041349) do
+ActiveRecord::Schema.define(version: 20151209052837) do
 
   create_table "backpacks", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -82,7 +82,8 @@ ActiveRecord::Schema.define(version: 20151209041349) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "role",              default: 0
-    t.boolean  "validated",         default: false, null: false
+    t.boolean  "verified",          default: false
+    t.string   "perishable_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

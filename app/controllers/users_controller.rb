@@ -33,13 +33,16 @@ class UsersController < ApplicationController
     # Crea un usuario nuevo con los parámetros que reciba
     @user = User.new(users_params)
 
-    if @user.save            # Si se puede guardar en la base de datos
+    # Intento guardar sin iniciar sesión
+    if @user.save_without_session_maintenance
       # Se puede generar un mensaje de éxito, como
       # flash[:success] = "Registro exitoso"
+
+      # Envía correo de verificación
+      @user.deliver_verification_instructions!
       
       # Regresa a la raiz
       # Hay que cambiarlo para que redirija a la página de donde vino.
-      UserMailer.validation_email(@user).deliver_now
       redirect_to root_path
     else                     # Si no se guardó
       render :new            # Vuelve a mostrar new
@@ -76,12 +79,14 @@ class UsersController < ApplicationController
   end
 
   # Método de validación de usuario
-  def validate
-    @user = User.find(params[:id])
-    @user.update_attribute(:validated, true)
-    redirect_to root_path
+  def verify
+    @user = User.find_by(perishable_token: params[:token])
+    if @user
+      @user.verify!
+    end
+    redirect_to root_url
   end
-
+  
   private
 
   # Método auxiliar que filtra los atributos permitidos en un User
