@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151207194500) do
     t.string   "persistence_token"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "role",              default: 0
     t.boolean  "validated",         default: false, null: false
   end
 

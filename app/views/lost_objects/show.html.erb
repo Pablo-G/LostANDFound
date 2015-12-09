@@ -10,6 +10,9 @@
 </p>
 <p>Enviado por <%= @lost_object.user.name %></p>
 <%= link_to image_tag(@lost_object.image.url(:original)),
-                      @lost_object.image.url, target: '_blank' %>
+@lost_object.image.url, target: '_blank' %>
+
+<% if @lost_object.authorized? current_user %>
 <p><%= link_to 'Eliminar', @lost_object, method: :delete,
    data: { confirm: '¿Seguro?' } %></p>
+<% end %>

@@ -1,0 +1,15 @@
+<% content_for :title do %>
+  <%= @user.name %>
+<% end %>
+
+<h2>Perfil</h2>
+<p><strong>Nombre:</strong> <%= @user.name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Edad:</strong> <%= @user.age %></p>
+<p><strong>Género:</strong> <%= @user.gender %></p>
+<p><%= link_to 'Editar perfil', edit_user_path %></p>
+
+<% if @user.lost_objects %>
+  <h2>Objetos encontrados</h2>
+  <%= render @user.lost_objects %>
+<% end %>
