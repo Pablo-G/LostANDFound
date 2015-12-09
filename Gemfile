@@ -7,7 +7,8 @@ gem 'therubyracer', '0.12.2', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'authlogic'
-gem "paperclip"
+gem 'paperclip'
+gem 'active_record-acts_as'
 
 group :development, :test do
 end
