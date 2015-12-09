@@ -1,7 +1,7 @@
 # coding: utf-8
 class LostObject < ActiveRecord::Base
   has_attached_file :image,
-                    styles: { thumb: ["268x249#", :jpg],
+                    styles: { thumb: ["100x100#", :jpg],
                               original: ["500x500>", :jpg] },
                     convert_options: { thumb: "-strip",
                                        original: "-strip" },
@@ -15,7 +15,6 @@ class LostObject < ActiveRecord::Base
                        size: { in: 0..500.kilobytes }
   belongs_to :location
   belongs_to :user
-  actable                       # Para la herencia
 
   validates :user, presence: true
 
@@ -24,36 +23,12 @@ class LostObject < ActiveRecord::Base
   def authorized?(u)
     u && (u == user || u.is_mod?)
   end
-
-  # Los distintos tipos específicos de objeto
-  def self.types
-    [:phone, :notebook, :glasses, :laptop, :backpack, :other]
-  end
-
-  # Para poder manejar los datos de las subclases
-  attr_accessor :brand, :model, :company, :case, :cracked_screen # phone
-
-
+  
   # Busquedas simples
-  def search(search)
-    where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
+  def self.search(search)
+    where("name LIKE ? 
+    OR description LIKE ?",
+    "%#{search}%", 
+    "%#{search}%")
   end
-end
-
-
-class Phone < ActiveRecord::Base
-  acts_as :lost_object
-end
-class Backpack < ActiveRecord::Base
-  acts_as :lost_object
-end
-class Notebook < ActiveRecord::Base
-  acts_as :lost_object
-end
-class Glasses < ActiveRecord::Base
-  acts_as :lost_object
-end
-class Laptop < ActiveRecord::Base
-  acts_as :lost_object
-
 end
