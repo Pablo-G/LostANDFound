@@ -2,43 +2,76 @@
   <%= @lost_object.name %>
 <% end %>
 
-<h2><p><%= @lost_object.name %></p></h2>
-<p><%= @lost_object.description %></p>
+<section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-9 padding-right">
+          <div class="product-details"><!--product-details-->
+            <div class="col-sm-5">
+              <div class="view-product">
+                <%= link_to image_tag(@lost_object.image.url(:original)),
+                @lost_object.image.url, target: '_blank' %>
+<!--                <h3>ZOOM</h3>-->
+              </div>
+            </div>
+            <div class="col-sm-7">
+              <div class="product-information"><!--/product-information-->
+                <h2><p><%= @lost_object.name %></p></h2>
+                <span>
+                <p>
+                  <strong>Encontrado en:</strong>
+                  <%= @lost_object.location.name if @lost_object.location %>
+                </p>
+                <p><strong>Sent by:</strong> <%= @lost_object.user.name %></p>
+                  <p><%= @lost_object.description %></p>
+                  <% if false %>
+                    <strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
 
-<p>
-  <strong>Encontrado en:</strong>
-  <%= @lost_object.location.name if @lost_object.location %>
-</p>
-
-<% if false %>
-<strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
-
-<% specific = @lost_object.specific %>
-<% if specific.has_attribute? :brand %>
-  <strong>Marca:</strong> <%= specific.brand %> </br>
-<% end %>
-<% if specific.has_attribute? :model %>
-  <strong>Modelo:</strong> <%= specific.model %> </br>
-<% end %>
-<% if specific.has_attribute? :company %>
-  <strong>Compañía telefónica:</strong> <%= specific.company %> </br>
-<% end %>
-<% if specific.has_attribute?(:case) && specific.case %>
-  Tiene funda.</br>
-<% end %>
-<% if specific.has_attribute?(:cracked_screen) &&
-    specific.cracked_screen %>
-  Tiene la pantalla rota.</br>
-<% end %>
-<% end %>
-
-<p>Enviado por <%= @lost_object.user.name %></p>
-<%= link_to image_tag(@lost_object.image.url(:original)),
-@lost_object.image.url, target: '_blank' %>
-</br>
-
-  
-<% if @lost_object.authorized? current_user %>
-<p><%= link_to 'Eliminar', @lost_object, method: :delete,
-   data: { confirm: '¿Seguro?' } %></p>
-<% end %>
+                    <% specific = @lost_object.specific %>
+                    <% if specific.has_attribute? :brand %>
+                    <strong>Marca:</strong> <%= specific.brand %> </br>
+                    <% end %>
+                    <% if specific.has_attribute? :model %>
+                    <strong>Modelo:</strong> <%= specific.model %> </br>
+                    <% end %>
+                    <% if specific.has_attribute? :company %>
+                    <strong>Compañía telefónica:</strong> <%= specific.company %> </br>
+                    <% end %>
+                    <% if specific.has_attribute?(:case) && specific.case %>
+                    Tiene funda.</br>
+                    <% end %>
+                    <% if specific.has_attribute?(:cracked_screen) &&
+                      specific.cracked_screen %>
+                    Tiene la pantalla rota.</br>
+                    <% end %>
+                  <% end %>
+<!--                  <span>US $59</span>-->
+<!--                  <label>Quantity:</label>-->
+<!--                  <input type="text" value="3" />-->
+                  </br>
+                  <button type="button" class="btn btn-fefault cart">
+                    <i class="fa "></i>
+                    Contact!
+                  </button>
+                <% if @lost_object.authorized? current_user %>
+                  <p><%= link_to 'Eliminar', @lost_object, method: :delete, data: { confirm: '¿Seguro?' } %></p>
+                <% end %>
+                </span>
+                
+                   
+<!--                <p><b>Availability:</b> In Stock</p>-->
+<!--                <p><b>Condition:</b> New</p>-->
+<!--                <p><b>Brand:</b> E-SHOPPER</p>-->
+<!--                <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>-->
+              </div><!--/product-information-->
+            </div>
+          </div><!--/product-details-->
+          
+          
+          
+        </div>
+      </div>
+    </div>
+  </section>
