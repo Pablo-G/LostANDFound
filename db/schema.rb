@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20151209041349) do
     t.string   "persistence_token"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.integer  "role",              default: 0
     t.boolean  "validated",         default: false, null: false
+    t.integer  "role",              default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
