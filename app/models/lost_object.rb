@@ -53,10 +53,8 @@ class Laptop < ActiveRecord::Base
   # Busquedas simples
   def search(search)
     where("name LIKE ? 
-    OR category LIKE ? 
     OR description LIKE ?",
     "%#{search}%", 
-    "%#{search}%",
     "%#{search}%")
   end
 end
