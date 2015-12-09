@@ -32,6 +32,12 @@ class LostObject < ActiveRecord::Base
 
   # Para poder manejar los datos de las subclases
   attr_accessor :brand, :model, :company, :case, :cracked_screen # phone
+
+
+  # Busquedas simples
+  def search(search)
+    where("name LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
+  end
 end
 
 
@@ -49,12 +55,5 @@ class Glasses < ActiveRecord::Base
 end
 class Laptop < ActiveRecord::Base
   acts_as :lost_object
-  
-  # Busquedas simples
-  def search(search)
-    where("name LIKE ? 
-    OR description LIKE ?",
-    "%#{search}%", 
-    "%#{search}%")
-  end
+
 end
