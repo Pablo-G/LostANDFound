@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207194500) do
+ActiveRecord::Schema.define(version: 20151209041349) do
+
+  create_table "backpacks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "glasses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "laptops", force: :cascade do |t|
+    t.string   "brand"
+    t.string   "model"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -24,7 +41,6 @@ ActiveRecord::Schema.define(version: 20151207194500) do
 
   create_table "lost_objects", force: :cascade do |t|
     t.string   "name"
-    t.string   "category"
     t.text     "description"
     t.integer  "user_id"
     t.boolean  "state"
@@ -36,6 +52,23 @@ ActiveRecord::Schema.define(version: 20151207194500) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "location_id"
+    t.integer  "actable_id"
+    t.string   "actable_type"
+  end
+
+  create_table "notebooks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.string   "brand"
+    t.string   "model"
+    t.string   "company"
+    t.boolean  "case"
+    t.boolean  "cracked_screen"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +81,7 @@ ActiveRecord::Schema.define(version: 20151207194500) do
     t.string   "persistence_token"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "role",              default: 0
     t.boolean  "validated",         default: false, null: false
   end
 

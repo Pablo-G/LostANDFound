@@ -30,6 +30,35 @@
   <%= f.label :image, "Imagen" %>
   <%= f.file_field :image %>
   </br>
+
+  <%= f.label :actable_type, "Tipo" %>
+  <%= f.select :actable_type,
+  options_for_select(LostObject.types, :other) %>
+  </br>
+
+  <h3>Campos específicos por tipo. Deben ocultarse según 'Tipo' usando JavaScript</h3>
+
+  <p>phone</p>
+  <%= f.label :brand, "Marca" %>
+  <%= f.text_field :brand %>
+  </br>
+  
+  <%= f.label :model, "Modelo" %>
+  <%= f.text_field :model %>
+  </br>
+  
+  <%= f.label :company, "Compañía telefónica" %>
+  <%= f.text_field :company %>
+  </br>
+
+  <%= f.label :case, "¿Tiene funda?" %>
+  <%= f.check_box :case %>
+  </br>
+
+  <%= f.label :cracked_screen, "¿Tiene la pantalla rota?" %>
+  <%= f.check_box :cracked_screen %>
+  </br>
+  
   
   <%= f.submit "Dar de alta" %>
   

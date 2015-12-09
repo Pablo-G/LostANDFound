@@ -4,12 +4,41 @@
 
 <h2><p><%= @lost_object.name %></p></h2>
 <p><%= @lost_object.description %></p>
+
 <p>
   <strong>Encontrado en:</strong>
   <%= @lost_object.location.name if @lost_object.location %>
 </p>
+
+
+<strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
+
+<% specific = @lost_object.specific %>
+<% if specific.has_attribute? :brand %>
+  <strong>Marca:</strong> <%= specific.brand %> </br>
+<% end %>
+<% if specific.has_attribute? :model %>
+  <strong>Modelo:</strong> <%= specific.model %> </br>
+<% end %>
+<% if specific.has_attribute? :company %>
+  <strong>Compañía telefónica:</strong> <%= specific.company %> </br>
+<% end %>
+<% if specific.has_attribute?(:case) && specific.case %>
+  Tiene funda.</br>
+<% end %>
+<% if specific.has_attribute?(:cracked_screen) &&
+    specific.cracked_screen %>
+  Tiene la pantalla rota.</br>
+<% end %>
+
+
 <p>Enviado por <%= @lost_object.user.name %></p>
 <%= link_to image_tag(@lost_object.image.url(:original)),
-                      @lost_object.image.url, target: '_blank' %>
+@lost_object.image.url, target: '_blank' %>
+</br>
+
+  
+<% if @lost_object.authorized? current_user %>
 <p><%= link_to 'Eliminar', @lost_object, method: :delete,
    data: { confirm: '¿Seguro?' } %></p>
+<% end %>

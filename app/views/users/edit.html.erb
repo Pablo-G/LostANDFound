@@ -1,10 +1,10 @@
 <% content_for :title do %>
-  Registro
+  @user.name
 <% end %>
 
-<h1>Registro</h1>
+<h1>Editar perfil</h1>
 
-<%= form_for @user, url: new_user_path, method: :post do |f| %>
+<%= form_for @user, url: user_path, method: :patch do |f| %>
 
   <%# shared/errors muestra los errores encontrados en un
   # objeto dado, en este caso @user %>
@@ -15,7 +15,7 @@
   </br>
   
   <%= f.label :email, "Correo electrónico" %>
-  <%= f.email_field :email %>
+  <%= f.label :email, @user.email %>
   </br>
 
   <%= f.label :gender, "Género" %>
@@ -26,7 +26,19 @@
   <%= f.number_field :age, :min => 0, :step => 1 %>
   </br>
   
-  <%= f.label :password, "Contraseña" %>
+  <%= f.submit "Actualizar" %>
+  
+<% end %>
+
+<h2>Cambiar contraseña</h2>
+
+<%= form_for @user, url: update_password_path, method: :patch do |f| %>
+
+  <%= f.label :current_password, "Contraseña actual" %>
+  <%= f.password_field :current_password %>
+  </br>
+
+  <%= f.label :password, "Nueva contraseña" %>
   <%= f.password_field :password %>
   </br>
   
@@ -34,6 +46,7 @@
   <%= f.password_field :password_confirmation %>
   </br>
 
-  <%= f.submit "Registrarse" %>
+  <%= f.submit "Cambiar contraseña" %>
+  </br>
   
 <% end %>
