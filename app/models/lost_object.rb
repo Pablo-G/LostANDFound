@@ -24,7 +24,6 @@ class LostObject < ActiveRecord::Base
   def authorized?(u)
     u && (u == user || u.is_mod?)
   end
-<<<<<<< HEAD:app/models/lost_object.rb.expo
 
   # Los distintos tipos específicos de objeto
   def self.types
@@ -50,10 +49,9 @@ class Glasses < ActiveRecord::Base
 end
 class Laptop < ActiveRecord::Base
   acts_as :lost_object
-=======
   
   # Busquedas simples
-  def self.search(search)
+  def search(search)
     where("name LIKE ? 
     OR category LIKE ? 
     OR description LIKE ?",
@@ -61,5 +59,4 @@ class Laptop < ActiveRecord::Base
     "%#{search}%",
     "%#{search}%")
   end
->>>>>>> origin/dbSearch:app/models/lost_object.rb
 end
