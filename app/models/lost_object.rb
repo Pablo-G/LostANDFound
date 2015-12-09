@@ -27,10 +27,8 @@ class LostObject < ActiveRecord::Base
   # Busquedas simples
   def self.search(search)
     where("name LIKE ? 
-    OR category LIKE ? 
     OR description LIKE ?",
     "%#{search}%", 
-    "%#{search}%",
     "%#{search}%")
   end
 end
