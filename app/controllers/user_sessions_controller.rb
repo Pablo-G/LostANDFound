@@ -23,7 +23,7 @@ class UserSessionsController < ApplicationController
       # En teoría habría que regresar a la página anterior
       redirect_to lost_objects_path
     else
-      render :new
+      render 'pages/sign_in', locals: {user_session: @user_session}
     end
   end
 

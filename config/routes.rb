@@ -16,10 +16,10 @@ Rails.application.routes.draw do
   # Rutas para manejo de usuario
   # Iniciar/Cerrar sesión:
   delete '/sign_out', to: 'user_sessions#destroy'
-  get '/sign_in', to: 'user_sessions#new'
+  get '/sign_in', to: 'pages#sign_in'
+  post '/sign_in', to: 'user_sessions#create'
+  post '/register', to: 'users#create', as: :register
   # Registro:
-  get '/register', to: 'users#new', as: :new_user
-  post '/register', to: 'users#create'
   get '/profile', to: 'users#show', as: :user
   get '/profile/edit', to: 'users#edit', as: :edit_user
   match '/profile', to: 'users#update', via: [:put, :patch]

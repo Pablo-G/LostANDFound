@@ -13,6 +13,10 @@ class PagesController < ApplicationController
   def index
     render layout: "main"
   end
+
+  def sign_in
+    redirect_to root_path if current_user
+  end
   
   def session_index
   end

@@ -41,8 +41,8 @@ class UsersController < ApplicationController
       # Hay que cambiarlo para que redirija a la página de donde vino.
       UserMailer.validation_email(@user).deliver_now
       redirect_to root_path
-    else                     # Si no se guardó
-      render :new            # Vuelve a mostrar new
+    else                        # Si no se guardó
+      render 'pages/sign_in', locals: {user: @user}
     end
   end
 
