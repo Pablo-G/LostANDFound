@@ -8,5 +8,11 @@ class UserMailer < ApplicationMailer
     email_with_name = %("#{@user.name}" <#{@user.email}>)
     mail(to: email_with_name, subject: "Bienvenido a LostANDFound" )
   end
+
+  def password_reset(user)
+    @user = user
+    mail(to: %("#{@user.name}" <#{@user.email}>),
+         subject: "Instrucciones para recuperación de contraseña")
+  end
   
 end
