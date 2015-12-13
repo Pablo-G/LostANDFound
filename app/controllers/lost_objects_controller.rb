@@ -6,6 +6,7 @@ class LostObjectsController < ApplicationController
   # Es temporal mientras se implementan búsquedas
   def index
     @lost_objects = LostObject.all
+    @search_page = true;
     if params[:search]
       @lost_objects = LostObject.search(params[:search]).order("name")
     else
