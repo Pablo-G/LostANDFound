@@ -44,8 +44,8 @@ class UsersController < ApplicationController
       # Regresa a la raiz
       # Hay que cambiarlo para que redirija a la página de donde vino.
       redirect_to root_path
-    else                     # Si no se guardó
-      render :new            # Vuelve a mostrar new
+    else                        # Si no se guardó
+      render 'pages/sign_in', locals: {user: @user}
     end
   end
 

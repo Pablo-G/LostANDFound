@@ -21,9 +21,9 @@ class UserSessionsController < ApplicationController
     if @user_session.save      
       # Por ahora se redirige a la página de inicio del usuario que accede.
       # En teoría habría que regresar a la página anterior
-      redirect_to session_index_path
+      redirect_to lost_objects_path
     else
-      render :new
+      render 'pages/sign_in', locals: {user_session: @user_session}
     end
   end
 
@@ -31,7 +31,7 @@ class UserSessionsController < ApplicationController
   def destroy
     current_user_session.destroy
     # Se podría cambiar para redirigir a la página anterior
-    redirect_to root_path
+    redirect_to lost_objects_path
   end
 
   private

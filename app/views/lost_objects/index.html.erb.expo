@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  Objetos perdidos
+Lost Objects
 <% end %>
 
 <section>
@@ -104,13 +104,7 @@
 <div class="col-sm-9 padding-right">
 	<div class="features_items"><!--features_items-->
 		<h2 class="title text-center">Found Items</h2>
-                <div id="lost_objects">
-                  <% if @lost_objects.present? %>
-  		    <%= render @lost_objects %>
-		  <% else %>
-  		    <p>No objects with terms <i><%= params[:search] %></i> found.</p>
-		  <% end %>
-                </div>
+		<%= render @lost_objects  %>
 	</div>
 </div>
 </div>

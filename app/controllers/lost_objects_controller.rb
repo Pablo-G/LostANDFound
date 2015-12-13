@@ -6,6 +6,12 @@ class LostObjectsController < ApplicationController
   # Es temporal mientras se implementan búsquedas
   def index
     @lost_objects = LostObject.all
+    @search_page = true;
+    if params[:search]
+      @lost_objects = LostObject.search(params[:search]).order("name")
+    else
+      @lost_objects = LostObject.all.order('name')
+    end
   end
 
   def show
@@ -23,7 +29,7 @@ class LostObjectsController < ApplicationController
   #Crea un nuevo objeto
   def create
     if current_user
-      @lost_object = create_specific
+      @lost_object = LostObject.new(lost_objects_params)
       @lost_object.user = current_user
       @lost_object.state = false # No se ha devuelto
       @lost_object.date_added = DateTime.now
@@ -55,49 +61,11 @@ class LostObjectsController < ApplicationController
   
   private
 
-  def lost_objects_whitelist
-    [:name, :category, :location_id, :description, :image]
-  end
-  
-  def specific_whitelist
-    return case params[:lost_object][:actable_type]
-           when "phone"
-             [:brand, :model, :company, :case, :cracked_screen]
-           when "backpack"
-             []# [:size]
-           when "notebook"
-             []# [:size, :kind]
-           when "glasses"
-             []# [:kind, :brand]
-           when "laptop"
-             [:brand, :model]# [:brand, :model, :size, :keyboard_layout]
-           else
-             []
-           end
-  end
-  
   # Método auxiliar que filtra los atributos permitidos en un LostObject
   def lost_objects_params
-    params.require(:lost_object).permit(lost_objects_whitelist +
-                                        specific_whitelist)
-  end
-
-  # Crea un lost_object del tipo especifico que indique params
-  def create_specific
-    return case params[:lost_object][:actable_type]
-           when "phone"
-             Phone.new(lost_objects_params)
-           when "backpack"
-             Backpack.new(lost_objects_params)
-           when "notebook"
-             Notebook.new(lost_objects_params)
-           when "glasses"
-             Glasses.new(lost_objects_params)
-           when "laptop"
-             Laptop.new(lost_objects_params)
-           else
-             LostObject.new(lost_objects_params)
-           end
+    params.require(:lost_object).permit(:name, :category,
+                                        :location_id, :description,
+                                        :image)
   end
   
 end
