@@ -1,6 +1,7 @@
 <% content_for :title do %>
-  Submit new object
+  ¡Encontré algo!
 <% end %>
+
 <!-- Aun no estamos listos -->
 <% if false %>
 <!--
@@ -37,39 +38,40 @@
 
 
 <section id="form"><!--form-->
-    <div class="container">
-      <div class="">
-        <div class="col-sm-4 col-sm-offset-1">
-          <div class="new-product-form"><!--login form-->
-            <h2>Submit a new object</h2>
-            <%= form_for @lost_object do |f| %>
-            <!--form action="#" -->
-               <%= render 'shared/errors', object: @lost_object %>
-  
-              <%= f.label :name, "Object name"%></br>
-              <%= f.text_field :name, :placeholder => "Object name" %>
-              </br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-1">
+        <div class="new-product-form">
+          <h2>Agregar un objeto</h2>
+          
+          <%= form_for @lost_object do |f| %>
+            <%= render 'shared/errors', object: @lost_object %>
 
-              <%= f.label :location_id, "Location found" %>
-              <%= f.select :location_id, options_for_select(Location.all.map { |l| [l.name, l.id] }) %>
-              </br>
-              
-              <%= f.label :description, "Object description" %>
-              <%= f.text_area :description %>
-              </br>
-              
-              <%= f.label :image, "Image" %>
-              <%= f.file_field :image %>
-              </br>
-            
-              <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
-                Submit
-              <% end %>
+            <h6>Nombre</h6>
+            <%= f.text_field :name, :placeholder => "Nombre",
+            class: "form-control"  %>
+
+            <h6>Ubicación</h6>
+            <%= f.select :location_id,
+            options_for_select(Location.all.map { |l| [l.name, l.id] }),
+            class: "form-control" %>
+  
+            <h6>Descripción</h6>
+            <%= f.text_area :description,
+            class: "form-control", rows: "3" %>
+
+            <h6>Imagen</h6>
+            <%= f.file_field :image %>
+  
+            <%= content_tag :button, :type => :submit,
+            :class => ["btn", "btn-default"] do%>
+              Enviar
             <% end %>
-            <!--/form-->
-          </div><!--/login form-->
+          <% end %>
+          
         </div>
-        
       </div>
+      
     </div>
-  </section><!--/form-->
+  </div>
+</section>

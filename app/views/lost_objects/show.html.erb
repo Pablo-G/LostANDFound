@@ -3,74 +3,64 @@
 <% end %>
 
 <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-1">
-        </div>
-        <div class="col-sm-9 padding-right">
-          <div class="product-details"><!--product-details-->
-            <div class="col-sm-5">
-              <div class="view-product">
-                <%= link_to image_tag(@lost_object.image.url(:original)),
-                @lost_object.image.url, target: '_blank' %>
-<!--                <h3>ZOOM</h3>-->
-              </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+      </div>
+      <div class="col-sm-9 padding-right">
+        <div class="product-details"><!--product-details-->
+          <div class="col-sm-5">
+            <div class="view-product">
+              <%= image_tag(@lost_object.image.url(:original)) %>
             </div>
-            <div class="col-sm-7">
-              <div class="product-information"><!--/product-information-->
-                <h2><p><%= @lost_object.name %></p></h2>
-                <span>
+          </div>
+          <div class="col-sm-7">
+            <div class="product-information"><!--/product-information-->
+              <h2><p><%= @lost_object.name %></p></h2>
+              <span>
                 <p>
-                  <strong>Found in:</strong>
+                  <strong>Encontrado en:</strong>
                   <%= @lost_object.location.name if @lost_object.location %>
                 </p>
-                <p><strong>Sent by:</strong> <%= @lost_object.user.name %></p>
-                  <p><%= @lost_object.description %></p>
-                  <% if false %>
-                    <strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
+                <p><strong>Enviado por:</strong> <%= @lost_object.user.name %></p>
+                <p><%= @lost_object.description %></p>
+                <% if false %>
+                  <strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
 
-                    <% specific = @lost_object.specific %>
-                    <% if specific.has_attribute? :brand %>
+                  <% specific = @lost_object.specific %>
+                  <% if specific.has_attribute? :brand %>
                     <strong>Marca:</strong> <%= specific.brand %> </br>
-                    <% end %>
-                    <% if specific.has_attribute? :model %>
+                  <% end %>
+                  <% if specific.has_attribute? :model %>
                     <strong>Modelo:</strong> <%= specific.model %> </br>
-                    <% end %>
-                    <% if specific.has_attribute? :company %>
+                  <% end %>
+                  <% if specific.has_attribute? :company %>
                     <strong>Compañía telefónica:</strong> <%= specific.company %> </br>
-                    <% end %>
-                    <% if specific.has_attribute?(:case) && specific.case %>
+                  <% end %>
+                  <% if specific.has_attribute?(:case) && specific.case %>
                     Tiene funda.</br>
-                    <% end %>
-                    <% if specific.has_attribute?(:cracked_screen) &&
+                  <% end %>
+                  <% if specific.has_attribute?(:cracked_screen) &&
                       specific.cracked_screen %>
                     Tiene la pantalla rota.</br>
-                    <% end %>
                   <% end %>
-<!--                  <span>US $59</span>-->
-<!--                  <label>Quantity:</label>-->
-<!--                  <input type="text" value="3" />-->
+                <% end %>
                   </br>
                   <button type="button" class="btn btn-fefault cart">
                     <i class="fa "></i>
-                    Contact!
+                    Contactar
                   </button>
-                <% if @lost_object.authorized? current_user %>
-                  <p><%= link_to 'Eliminar', @lost_object, method: :delete, data: { confirm: '¿Seguro?' } %></p>
-                <% end %>
-                </span>
-                
-<!--                <p><b>Availability:</b> In Stock</p>-->
-<!--                <p><b>Condition:</b> New</p>-->
-<!--                <p><b>Brand:</b> E-SHOPPER</p>-->
-<!--                <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>-->
-              </div><!--/product-information-->
-            </div>
-          </div><!--/product-details-->
-          
-          
-          
-        </div>
+                  <% if @lost_object.authorized? current_user %>
+                    <p><%= link_to 'Eliminar', @lost_object, method: :delete %></p>
+                  <% end %>
+              </span>
+            </div><!--/product-information-->
+          </div>
+        </div><!--/product-details-->
+        
+        
+        
       </div>
     </div>
-  </section>
+  </div>
+</section>

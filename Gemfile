@@ -9,6 +9,7 @@ gem 'turbolinks'
 gem 'authlogic'
 gem 'paperclip'
 gem 'active_record-acts_as'
+gem 'font-awesome-rails'
 
 group :development, :test do
 end

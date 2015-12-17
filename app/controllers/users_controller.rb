@@ -71,6 +71,8 @@ class UsersController < ApplicationController
       if @user.update(p)
         redirect_to user_path and return
       end
+    else
+      @user.errors.add :base, "Contraseña incorrecta"
     end
     render :edit
   end

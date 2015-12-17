@@ -1,8 +1,34 @@
-<%= render 'shared/session' %>
+<header id="header">
+  <div class="header-middle">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-4 header-middle-margin">
+          <%= render 'shared/session' %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h1>Página de inicio</h1>
+  <div class="header-bottom"></div>
+</header>
 
-<% if current_user %>
-  <p><%= link_to 'Registrar objeto', new_lost_object_path %></p>
-<% end %>
-<p><%= link_to 'Objetos', lost_objects_path %></p>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="login-form">
+          <h2>¡Busca lo que perdiste!</h2>
+          <div class="search_box">
+            <%= form_tag(lost_objects_path, method: "get",
+                         id: "search-form", class: "form") do %>
+              <div class="form-group">
+                <%= text_field_tag :search, params[:search],
+                placeholder: "Buscar", class: "form-control" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- container -->
+</section>

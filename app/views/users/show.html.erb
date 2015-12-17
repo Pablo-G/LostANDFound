@@ -2,14 +2,35 @@
   <%= @user.name %>
 <% end %>
 
-<h2>Perfil</h2>
-<p><strong>Nombre:</strong> <%= @user.name %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Edad:</strong> <%= @user.age %></p>
-<p><strong>Género:</strong> <%= @user.gender %></p>
-<p><%= link_to 'Editar perfil', edit_user_path %></p>
+<section id="form"><!--form-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-1">
+        <h2><%= @user.name %></h2>
 
-<% if @user.lost_objects %>
-  <h2>Objetos encontrados</h2>
-  <%= render @user.lost_objects %>
-<% end %>
+        <p>
+          <strong>Correo electrónico:</strong>
+          <%= @user.email %>
+        </p>
+
+        <p>
+          <strong>Género:</strong>
+          <%= (@user.gender && !@user.gender.empty?) ? @user.gender : "No disponible" %>
+        </p>
+
+        <p>
+          <strong>Edad:</strong>
+          <%= @user.age || "No disponible" %>
+        </p>
+        
+        <p><%= link_to 'Editar perfil', edit_user_path %></p>
+
+        <% if @user.lost_objects %>
+          <h2>Objetos encontrados</h2>
+          <%= render @user.lost_objects %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</section>

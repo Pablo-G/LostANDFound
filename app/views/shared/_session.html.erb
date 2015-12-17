@@ -1,13 +1,27 @@
 <div class="shop-menu pull-right">
   <ul class="nav navbar-nav">
+    <li>
+      <%= link_to new_lost_object_path do %>
+        <i class="fa fa-crosshairs"></i> ¿Encontraste algo?
+      <% end %>
+    </li>
     <% if current_user %>
-      <li><%= link_to 'Found an object?', new_lost_object_path %></li>
-      <li><%= link_to 'Log out', sign_out_path, method: :delete %>
+      <li>
+        <%= link_to profile_path do %>
+          <i class="fa fa-user"></i><%= current_user.name %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to sign_out_path, method: :delete do %>
+          Cerrar sesión
+        <% end %>
+      </li>
     <% else %>
-	<li>
-	  <!--<a href="login.html" class="active"><i class="fa fa-lock"></i> Login</a>-->
-	  <%= link_to 'Login', sign_in_path %>
-	</li>
+      <li>
+        <%= link_to sign_in_path, class: "active" do %>
+          <i class="fa fa-lock"></i> Iniciar Sesión
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </div>

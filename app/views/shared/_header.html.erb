@@ -1,25 +1,27 @@
-<header id="header"><!--header-->
-	<div class="header-middle"><!--header-middle-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="logo pull-left">
-						<%= link_to image_tag("logo.png"), lost_objects_path %>
-					</div>
-					<div class="btn-group pull-right">
-					</div>
-				</div>
-					<div class="col-sm-8 header-middle-margin">
-					<div class="search_box pull-left">
-					  <%= form_tag(lost_objects_path, :method => "get",
-                                                       id: "search-form", "search-page": ("true" if @search_page)) do %>
-      					<%= text_field_tag :search, params[:search], placeholder: "Find an object" %>
-					</div>
-      					<!--<%= submit_tag "Buscar" %>-->
-      					<% end %>
-					<%= render 'shared/session' %>
-				</div>
-			</div>
-		</div>
-	</div>
+<header id="header">
+  <div class="header-middle">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="logo pull-left">
+            <%= link_to image_tag("logo.png"), root_path %>
+          </div>
+        </div>
+
+        <div class="col-sm-8 header-middle-margin">
+          <div class="search_box pull-left">
+            <%= form_tag(lost_objects_path, :method => "get",
+                         id: "search-form", "search-page": ("true" if @search_page)) do %>
+              <%= text_field_tag :search, params[:search], placeholder: "Buscar", autofocus: "true" %>
+          </div>
+          <!--<%= submit_tag "Buscar" %>-->
+            <% end %>
+            <%= render 'shared/session' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-bottom"></div>
 </header>
+

@@ -1,52 +1,70 @@
 <% content_for :title do %>
-  @user.name
+  <%= @user.name %>
 <% end %>
 
-<h1>Editar perfil</h1>
 
-<%= form_for @user, url: user_path, method: :patch do |f| %>
+<section id="form"><!--form-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-1">
 
-  <%# shared/errors muestra los errores encontrados en un
-  # objeto dado, en este caso @user %>
-  <%= render 'shared/errors', object: @user %>
-  
-  <%= f.label :name, "Nombre" %>
-  <%= f.text_field :name %>
-  </br>
-  
-  <%= f.label :email, "Correo electrónico" %>
-  <%= f.label :email, @user.email %>
-  </br>
+        <%= render 'shared/errors', object: @user %>
+        
+        <h2>Editar perfil</h2>
 
-  <%= f.label :gender, "Género" %>
-  <%= f.text_field :gender %>
-  </br>
+        <%= form_for @user, url: user_path, method: :patch do |f| %>
 
-  <%= f.label :age, "Edad" %>
-  <%= f.number_field :age, :min => 0, :step => 1 %>
-  </br>
-  
-  <%= f.submit "Actualizar" %>
-  
-<% end %>
+          <h6>Nombre</h6>
+          <%= f.text_field :name, :placeholder => @user.name,
+          class: "form-control"  %>
 
-<h2>Cambiar contraseña</h2>
+          <h6>Correo electrónico</h6>
+          <p><%= @user.email %></p>
 
-<%= form_for @user, url: update_password_path, method: :patch do |f| %>
+          <h6>Género</h6>
+          <%= f.text_field :gender, :placeholder => @user.gender,
+          class: "form-control"  %>
 
-  <%= f.label :current_password, "Contraseña actual" %>
-  <%= f.password_field :current_password %>
-  </br>
+          <h6>Edad</h6>
+          <%= f.number_field :age, :min => 0, :max => 99, :step => 1,
+          :placeholder => @user.age, class: "form-control" %>
+          
 
-  <%= f.label :password, "Nueva contraseña" %>
-  <%= f.password_field :password %>
-  </br>
-  
-  <%= f.label :password_confirmation, "Confirma tu contraseña" %>
-  <%= f.password_field :password_confirmation %>
-  </br>
+          <%= content_tag :button, :type => :submit,
+          :class => ["btn", "btn-default"] do%>
+            Editar perfil
+          <% end %>
+          
+        <% end %>
 
-  <%= f.submit "Cambiar contraseña" %>
-  </br>
-  
-<% end %>
+        <h2>Cambiar contraseña</h2>
+
+        <%= form_for @user, url: update_password_path, method: :patch do |f| %>
+
+          <h6>Contraseña actual</h6>
+          <%= f.password_field :current_password,
+          :placeholder => "Contraseña actual",
+          class: "form-control" %>
+
+          <h6>Nueva contraseña</h6>
+          <%= f.password_field :password,
+          :placeholder => "Nueva contraseña",
+          class: "form-control"  %>
+          
+          <h6>Confirma tu nueva contraseña</h6>
+          <%= f.password_field :password_confirmation,
+          :placeholder => "Confirma tu nueva contraseña",
+          class: "form-control"  %>
+
+          
+          <%= content_tag :button, :type => :submit,
+          :class => ["btn", "btn-default"] do%>
+            Cambiar contraseña
+          <% end %>
+          
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+

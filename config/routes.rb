@@ -10,8 +10,7 @@ Rails.application.routes.draw do
 
   get 'validate/:id', to:'users#validate'
   # Define la raiz
-  root 'lost_objects#index'
-  get '/session_index', to: 'pages#session_index'
+  root 'pages#index'
   
   # Rutas para manejo de usuario
   # Iniciar/Cerrar sesión:

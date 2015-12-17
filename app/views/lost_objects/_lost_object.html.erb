@@ -1,31 +1,19 @@
-<!--<h2><p><%= link_to lost_object.name, lost_object_path(lost_object) %></p></h2>
-<p><%= lost_object.description %></p>
-<p>
-	<strong>Encontrado en:</strong>
-	<%= lost_object.location.name if lost_object.location %>
-</p>
-<%= link_to image_tag(lost_object.image.url(:thumb)), lost_object.image.url, target: '_blank' %>
--->
-
 <div class="col-sm-4">
-	<div class="product-image-wrapper">
-		<div class="single-products">
-			<div class="productinfo text-center">
-				<!--<img src="images/home/product1.jpg" alt="" />-->
-				<%= link_to image_tag(lost_object.image.url(:thumb)), lost_object.image.url, target: '_blank' %>
+  <div class="product-image-wrapper">
+    <div class="single-products">
+      <div class="productinfo text-center">
+	<%= image_tag(lost_object.image.url(:thumb)) %>
 
-				<p><%= lost_object.name %></p>
-				<!--<a href="#" class="btn btn-default add-to-cart"><i class="fa "></i>Ask for it!</a>-->
-				<%= link_to "Ask for it!", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
-			</div>
-			<div class="product-overlay">
-				<div class="overlay-content">
+	<p><%= lost_object.name %></p>
+	<%= link_to "Ask for it!", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
+      </div>
+      <div class="product-overlay">
+	<div class="overlay-content">
 
-					<p><%= lost_object.name %></p>
-					<!--<a href="#" class="btn btn-default add-to-cart"><i class="fa "></i>Ask for it!</a>-->
-					<%= link_to "Ask for it!", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
-				</div>
-			</div>
-		</div>
+	  <p><%= lost_object.name %></p>
+	  <%= link_to "Ask for it!", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
 	</div>
+      </div>
+    </div>
+  </div>
 </div>

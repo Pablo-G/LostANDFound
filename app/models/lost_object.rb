@@ -6,7 +6,7 @@ class LostObject < ActiveRecord::Base
                     convert_options: { thumb: "-strip",
                                        original: "-strip" },
                     url: "/images/:style/:hash.:extension",
-                    default_url: "/images/:style/missing.jpg",
+                    default_url: ":missing",
                     hash_secret: "5bb726e0749f58e322dd5d3d6579e3e5a75"
   validates_attachment :image,
                        content_type: { content_type: ["image/jpeg",
