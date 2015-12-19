@@ -12,14 +12,6 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def new
-    if current_user
-      redirect_to root_path
-    else
-      @user = User.new
-    end
-  end
-
   # Sólo funciona si el usuario ya inició sesión
   def edit
     if !current_user
@@ -34,13 +26,8 @@ class UsersController < ApplicationController
     @user = User.new(users_params)
 
     if @user.save            # Si se puede guardar en la base de datos
-      # Se puede generar un mensaje de éxito, como
-      # flash[:success] = "Registro exitoso"
-      
-      # Regresa a la raiz
-      # Hay que cambiarlo para que redirija a la página de donde vino.
-      UserMailer.validation_email(@user).deliver_now
-      redirect_to root_path
+      add_message :success, "Registro exitoso"
+      redirect_back
     else                        # Si no se guardó
       render 'pages/sign_in', locals: {user: @user}
     end
@@ -53,7 +40,7 @@ class UsersController < ApplicationController
     p = users_params.permit!.except(:email, :password,
                                     :password_confirmation)
     if @user.update(p)
-      puts p
+      add_message :success, "Cambios guardados exitosamente"
       redirect_to user_path
     else
       render :edit
@@ -69,6 +56,7 @@ class UsersController < ApplicationController
       p = params.require(:user).permit(:password,
                                        :password_confirmation)
       if @user.update(p)
+        add_message :success, "Contraseña cambiada"
         redirect_to user_path and return
       end
     else

@@ -5,13 +5,13 @@
 	<%= image_tag(lost_object.image.url(:thumb)) %>
 
 	<p><%= lost_object.name %></p>
-	<%= link_to "Ask for it!", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
+	<%= link_to "Ver detalles", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
       </div>
       <div class="product-overlay">
 	<div class="overlay-content">
 
 	  <p><%= lost_object.name %></p>
-	  <%= link_to "Ask for it!", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
+	  <%= link_to "Ver detalles", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>
 	</div>
       </div>
     </div>

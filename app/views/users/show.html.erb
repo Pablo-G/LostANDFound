@@ -5,7 +5,7 @@
 <section id="form"><!--form-->
   <div class="container">
     <div class="row">
-      <div class="col-sm-4 col-sm-offset-1">
+      <div class="col-sm-9 col-sm-offset-1">
         <h2><%= @user.name %></h2>
 
         <p>
@@ -25,11 +25,12 @@
         
         <p><%= link_to 'Editar perfil', edit_user_path %></p>
 
+
         <% if @user.lost_objects %>
           <h2>Objetos encontrados</h2>
           <%= render @user.lost_objects %>
         <% end %>
-
+        
       </div>
     </div>
   </div>

@@ -16,5 +16,7 @@ class PagesController < ApplicationController
 
   def sign_in
     redirect_to root_path if current_user
+    @user = User.new
+    @user_session = UserSession.new
   end
 end

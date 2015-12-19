@@ -7,6 +7,40 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Función auxiliar para agregar mensajes para el usuario
+  # Los tipos aceptados son success, info, warning y danger,
+  # ya sea como símbolo o como cadena
+  def add_message(type, contents)
+    flash[:messages] ||= []
+    flash[:messages] << { :type => type, :contents => contents }
+  end
+  
+  # Redirije a la página de inicio de sesión, agrega el mensaje
+  # adecuado y guarda la página destino en session[:original_uri]
+  def redirect_to_login
+    add_message :warning, "Necesitas iniciar sesión para hacer eso"
+    session[:original_uri] = request.url
+    redirect_to sign_in_path
+  end
+  # Redirije a la página indicada en session[:original_uri]
+  # o a la raiz si ninguna
+  def redirect_back
+    uri = session[:original_uri] || root_path
+    session[:original_uri] = nil
+    redirect_to uri
+  end
+      
+
+  # Función auxiliar para recorrer los mensajes para el usuario
+  # Después de recorrerlos, los limpia
+  def traverse_messages
+    flash[:messages] .each do |m|
+      yield m["type"], m["contents"]
+    end if flash[:messages]
+    flash[:messages] = nil
+  end
+  helper_method :traverse_messages
+
   # Función auxiliar que regresa la sesión actual
   # Es accesible desde cualquier controlador
   def current_user_session

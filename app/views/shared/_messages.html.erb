@@ -1,0 +1,10 @@
+<div class="container">
+
+  <% traverse_messages do |type, msg| %>
+    <div class="alert alert-<%= type %> fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <%= msg %>
+    </div>
+  <% end %>
+
+</div>

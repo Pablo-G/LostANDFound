@@ -3,16 +3,6 @@
 # Controlador para las sesiones de usuario
 class UserSessionsController < ApplicationController
 
-  # Crea una nueva sesión, la vista asociada es la pantalla
-  # de inicio de sesión.
-  def new
-    if current_user_session
-      redirect_to root_path
-    else
-      @user_session = UserSession.new
-    end
-  end
-
   # Inicia sesión
   def create
     # Inicia sesión con los parámetros que recibe
@@ -20,8 +10,7 @@ class UserSessionsController < ApplicationController
 
     if @user_session.save      
       # Por ahora se redirige a la página de inicio del usuario que accede.
-      # En teoría habría que regresar a la página anterior
-      redirect_to lost_objects_path
+      redirect_back
     else
       render 'pages/sign_in', locals: {user_session: @user_session}
     end
@@ -30,8 +19,7 @@ class UserSessionsController < ApplicationController
   # Cierra sesión
   def destroy
     current_user_session.destroy
-    # Se podría cambiar para redirigir a la página anterior
-    redirect_to lost_objects_path
+    redirect_to (request.referrer.present? ? :back : root_path)
   end
 
   private

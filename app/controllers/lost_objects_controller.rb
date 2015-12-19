@@ -22,7 +22,7 @@ class LostObjectsController < ApplicationController
     if current_user
       @lost_object = LostObject.new
     else
-      redirect_to sign_in_path
+      redirect_to_login
     end
   end
   
@@ -40,18 +40,20 @@ class LostObjectsController < ApplicationController
         render :new
       end
     else
-      redirect_to sign_in_path
+      redirect_to_login
     end
   end
 
   def destroy
     if !current_user
-      redirect_to sign_in_path and return
+      add_message_need_login
+      redirect_to_login and return
     end
 
     @lost_object = LostObject.find(params[:id])
     if @lost_object.authorized? current_user
       @lost_object.destroy
+      add_message :success, "Objeto eliminado exitosamente"
       redirect_to lost_objects_path
     else
       render :show, status: :forbidden and return
