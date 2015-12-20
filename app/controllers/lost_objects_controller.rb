@@ -5,13 +5,22 @@ class LostObjectsController < ApplicationController
   # Muestra todos los objetos
   # Es temporal mientras se implementan búsquedas
   def index
-    @lost_objects = LostObject.all
     @search_page = true;
     if params[:search]
       @lost_objects = LostObject.search(params[:search]).order("name")
     else
       @lost_objects = LostObject.all.order('name')
     end
+
+
+    # Esto debe ir al final del método, regresa sólo los adecuados
+    # para la página de búsqueda
+    limit = 15                  # Máximo número por página
+    @pages = (@lost_objects.count/limit.to_f).ceil # Total de páginas
+    @page = params[:page] ? params[:page].to_i : 1 # Página actual
+    @min_page = [@page - 5, 1].max
+    @max_page = [@page + 5, @pages].min
+    @lost_objects = @lost_objects.limit(15).offset(limit*(@page-1))
   end
 
   def show
@@ -69,5 +78,12 @@ class LostObjectsController < ApplicationController
                                         :location_id, :description,
                                         :image)
   end
+
+  # Método auxiliar para generar la dirección de una búsqueda
+  def search_page_path(query=nil,page=nil)
+    lost_objects_path(search: (query if query && !query.empty?),
+                      page: page)
+  end
+  helper_method :search_page_path
   
 end

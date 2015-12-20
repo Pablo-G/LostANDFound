@@ -65,11 +65,7 @@
 	<div class="features_items"><!--features_items-->
 	  <h2 class="title text-center">Objetos</h2>
           <div id="lost_objects">
-            <% if @lost_objects.present? %>
-  	      <%= render @lost_objects %>
-	    <% else %>
-  	      <p>No objects with terms <i><%= params[:search] %></i> found.</p>
-	    <% end %>
+            <%= render 'search_response' %>
           </div>
 	</div>
       </div>

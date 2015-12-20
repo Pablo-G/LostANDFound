@@ -1,10 +1,7 @@
 $("#lost_objects").html( $(
-    <% if @lost_objects.present? %>
-      "<%= escape_javascript render @lost_objects %>"
-    <% else %>
-      "<p>No objects with terms <i><%= params[:search] %></i> found.</p>"
-    <% end %>
+    "<%= escape_javascript render 'search_response' %>"
 ) );
 
+<% puts search_page_path params[:search], params[:page] %>
 window.history.pushState("", "",
-                         "<%= lost_objects_path(search: (params[:search] if !params[:search].empty?)) %>");
+                         "<%= search_page_path params[:search], params[:page] %>");

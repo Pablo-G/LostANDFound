@@ -1,0 +1,37 @@
+<% if @lost_objects.present? %>
+  <%= render @lost_objects %>
+<% else %>
+  <p>No se encontraron objetos con los términos <i><%= params[:search] %></i>.</p>
+<% end %>
+
+<div class="col-sm-12 pagination">
+    <ul>
+      <li>
+        <a class="search-page-link"
+           href="<%= search_page_path params[:search], 1 %>">Inicio</a>
+      </li>
+      
+      <% if @min_page != 1 %>
+        <li class="disabled"><a href="#">...</a></li>
+      <% end %>
+      
+      <% (@min_page..@max_page).each do |n| %>
+        <li class="<%= "active" if n==@page %>">
+          <a class="search-page-link"
+             href="<%= search_page_path params[:search], n %>">
+            <%= n %>
+          </a>
+        </li>
+      <% end %>
+      
+      <% if @max_page != @pages %>
+        <li class="disabled"><a href="#">...</a></li>
+      <% end %>
+      
+      <li>
+        <a class="search-page-link"
+           href="<%= search_page_path params[:search], @pages %>">Fin</a>
+      </li>
+    </ul>
+  </div>
+</div>
