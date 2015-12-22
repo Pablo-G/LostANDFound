@@ -2,6 +2,5 @@ $("#lost_objects").html( $(
     "<%= escape_javascript render 'search_response' %>"
 ) );
 
-<% puts search_page_path params[:search], params[:page] %>
 window.history.pushState("", "",
                          "<%= search_page_path params[:search], params[:page] %>");

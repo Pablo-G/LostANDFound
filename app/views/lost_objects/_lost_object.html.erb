@@ -2,7 +2,12 @@
   <div class="product-image-wrapper">
     <div class="single-products">
       <div class="productinfo text-center">
-	<%= image_tag(lost_object.image.url(:thumb)) %>
+
+        <% if lost_object.images.empty? %>
+          <%= image_tag asset_path "original/missing.jpg" %>
+        <% else %>
+          <%= image_tag lost_object.images.first.image.url %>
+        <% end %>
 
 	<p><%= lost_object.name %></p>
 	<%= link_to "Ver detalles", lost_object_path(lost_object), :class => ["btn", "btn-default", "add-to-cart"] %>

@@ -1,0 +1,20 @@
+function readURL (input) {
+    if (input.files) {
+        var id = "#" + $("#" + input.id).attr("previewer");
+        if (input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(id).attr("src", e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            $(id).attr("src", "<%= asset_path 'thumb/missing.jpg' %>");
+        }
+    }
+}
+
+$(document).ready(function() {
+    $(".previewable").change(function() {
+        readURL(this);
+    });
+});

@@ -1,4 +1,4 @@
-window.onload = function() {    // Después de cargar
+$(document).ready(function() {    // Después de cargar
     // Hace que #search-form envie la solicitud via ajax si está
     // en la página de búsqueda
     var form = $("#search-form");
@@ -25,4 +25,4 @@ window.onload = function() {    // Después de cargar
         inputTimer = setTimeout(function(e) {$("#search-form").submit();},
                                 inputTimerInterval);
     });
-}
+});

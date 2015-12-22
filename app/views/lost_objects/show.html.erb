@@ -10,10 +10,51 @@
       <div class="col-sm-9 padding-right">
         <div class="product-details"><!--product-details-->
           <div class="col-sm-5">
-            <div class="view-product">
-              <%= image_tag(@lost_object.image.url(:original)) %>
+
+            <div id="images" class="carousel slide" data-ride="carousel">
+
+              <% if @lost_object.images.empty? %>
+                <div class="view-product">
+                  <%= image_tag asset_path "original/missing.jpg" %>
+                </div>
+              <% else %>
+                <div class="view-product">
+
+                  <div class="carousel-inner" role="listbox">
+                    <% @lost_object.images.each_with_index do |i, n| %>
+                      <div class="item<%= " active" if n==0 %>">
+                        <%= image_tag(i.image.url(:original)) %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <% @lost_object.images.each_with_index do |i, n| %>
+                      <a data-target="#images" data-slide-to="<%= n %>"
+                         class="<%= "active" if n==0 %>">
+                        <%= image_tag(i.image.url(:thumb)) %>
+                      </a>
+                    <% end %>
+                  </div>
+                  
+                  <a class="left item-control" href="#images"
+                     role="button" data-slide="prev">
+		    <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="right item-control" href="#images"
+                     role="button" data-slide="next">
+		    <i class="fa fa-angle-right"></i>
+                  </a>
+                </div>
+
+              <% end %>
+                
             </div>
           </div>
+
+          
           <div class="col-sm-7">
             <div class="product-information"><!--/product-information-->
               <h2><p><%= @lost_object.name %></p></h2>

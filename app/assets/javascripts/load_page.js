@@ -10,7 +10,7 @@ function setPagination() {
     });
 }
 
-$(setPagination);
+$(document).ready(setPagination);
 
 $.ajaxSetup({
     complete: function(){

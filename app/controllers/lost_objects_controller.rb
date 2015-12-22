@@ -30,6 +30,7 @@ class LostObjectsController < ApplicationController
   def new
     if current_user
       @lost_object = LostObject.new
+      4.times { @lost_object.images.build}
     else
       redirect_to_login
     end
@@ -43,7 +44,7 @@ class LostObjectsController < ApplicationController
       @lost_object.state = false # No se ha devuelto
       @lost_object.date_added = DateTime.now
 
-      if @lost_object.save            
+      if @lost_object.save
         redirect_to lost_object_path(@lost_object)
       else                     
         render :new
@@ -76,7 +77,7 @@ class LostObjectsController < ApplicationController
   def lost_objects_params
     params.require(:lost_object).permit(:name, :category,
                                         :location_id, :description,
-                                        :image)
+                                        images_attributes: [:image])
   end
 
   # Método auxiliar para generar la dirección de una búsqueda

@@ -40,8 +40,8 @@
 <section id="form"><!--form-->
   <div class="container">
     <div class="row">
-      <div class="col-sm-4 col-sm-offset-1">
-        <div class="new-product-form">
+      <div class="new-product-form">
+        <div class="col-sm-4 col-sm-offset-1">
           <h2>Agregar un objeto</h2>
           
           <%= form_for @lost_object do |f| %>
@@ -59,16 +59,31 @@
             <h6>Descripción</h6>
             <%= f.text_area :description,
             class: "form-control", rows: "3" %>
-
-            <h6>Imagen</h6>
-            <%= f.file_field :image %>
   
             <%= content_tag :button, :type => :submit,
             :class => ["btn", "btn-default"] do%>
               Enviar
             <% end %>
-          <% end %>
           
+        </div>
+
+        <div class="col-sm-6">
+          <div class="row"
+            <h6>Imágenes</h6>
+            <p>(Puedes agregar hasta <%= @lost_object.images.size %> imágenes)</p>
+            <% @lost_object.images.each_with_index do |image, index| %>
+              <%= f.fields_for :images, image do |images_form| %>
+                <div class="col-sm-6">
+                  <img width="100px" height="100px"
+                       src="<%= asset_path 'thumb/missing.jpg' %>"
+                       id="image-preview-<%= index %>" />
+                  <%= images_form.file_field :image, class: "previewable",
+                      previewer: ("image-preview-" + index.to_s) %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          </div>
         </div>
       </div>
       
