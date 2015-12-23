@@ -11,6 +11,13 @@ class Location < ActiveRecord::Base
     return descendants + [self] + ancestors
   end
 
+  # Regresa los lugares que no descienden de ninguno.
+  # Si vemos los lugares como una gráfica, son las raíces
+  # de cada árbol (si hay varios)
+  def self.roots
+    where("parent_id IS NULL")
+  end
+
   
   protected
 

@@ -52,10 +52,17 @@
             class: "form-control"  %>
 
             <h6>Ubicación</h6>
-            <%= f.select :location_id,
-            options_for_select(Location.all.map { |l| [l.name, l.id] }),
-            class: "form-control" %>
-  
+            <ul id="selected-locations">
+            </ul>
+            <%= select_tag nil,
+            options_for_select(
+                [['Seleccionar ubicación', '']] +
+                Location.roots.map { |l| [l.name, l.id] },
+                ''
+            ),
+            class: ["form-control", "location-selector"] %>
+            <%= f.hidden_field :location_id, id: "lost_object_location_id" %>
+            
             <h6>Descripción</h6>
             <%= f.text_area :description,
             class: "form-control", rows: "3" %>

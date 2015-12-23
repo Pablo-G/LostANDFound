@@ -24,4 +24,7 @@ Rails.application.routes.draw do
   match '/profile', to: 'users#update', via: [:put, :patch]
   match '/profile/update_password', to: 'users#update_password',
         via: [:put, :patch], as: :update_password
+
+  # Para pedir ubicaciones
+  get '/locations', to: 'locations#index', as: :location
 end
