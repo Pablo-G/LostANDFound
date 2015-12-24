@@ -25,6 +25,8 @@ function remove_location(obj) {
 
 function update_location() {
     var selected = $(".location-selector option:selected");
+    if (!selected.val())
+        return;
     var list = $("#selected-locations");
     $("#lost_object_location_id").val(selected.val());
     var new_li = $("<li class='remove-location' data-location='" +

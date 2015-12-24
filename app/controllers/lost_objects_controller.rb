@@ -25,6 +25,7 @@ class LostObjectsController < ApplicationController
 
   def show
     @lost_object = LostObject.find(params[:id])
+    @specific = @lost_object.specific
   end
   
   def new
@@ -39,12 +40,13 @@ class LostObjectsController < ApplicationController
   #Crea un nuevo objeto
   def create
     if current_user
-      @lost_object = LostObject.new(lost_objects_params)
+      @lost_object = create_specific
       @lost_object.user = current_user
       @lost_object.state = false # No se ha devuelto
       @lost_object.date_added = DateTime.now
 
       if @lost_object.save
+        @lost_object = @lost_object.acting_as if @lost_object.actable_type
         redirect_to lost_object_path(@lost_object)
       else                     
         render :new
@@ -75,9 +77,61 @@ class LostObjectsController < ApplicationController
 
   # Método auxiliar que filtra los atributos permitidos en un LostObject
   def lost_objects_params
-    params.require(:lost_object).permit(:name, :category,
-                                        :location_id, :description,
-                                        images_attributes: [:image])
+    p = params.require(:lost_object)
+    general = p.permit(lost_object_whitelist)
+    specific = {}
+    if p[p[:actable_type]]
+      specific = p.require(p[:actable_type]).permit(specific_whitelist)
+    end
+    puts general.merge specific
+    general.merge specific
+  end
+
+  # Regresa los atributos permitidos en LostObject
+  def lost_object_whitelist
+    [:name, :category, :location_id, :description,
+     { images_attributes: [:image] }]
+  end
+  
+  # Regresa los atributos permitidos en el tipo específico
+  def specific_whitelist
+    return case params[:lost_object][:actable_type]
+           when "phone"
+             [:brand, :model, :company, :case, :cracked_screen]
+           when "laptop"
+             [:brand, :model]
+           when "backpack"
+             [:brand, :size]
+           when "notebook"
+             [:size, :type]
+           when "glasses"
+             [:brand, :sunglasses]
+           else
+             []
+           end
+  end
+
+  # Crea un objeto de un tipo específico
+  def create_specific
+    (specific_class).new(lost_objects_params)
+  end
+
+  # Da la clase específica de un objeto
+  def specific_class
+    return case params[:lost_object][:actable_type]
+           when "phone"
+             Phone
+           when "laptop"
+             Laptop
+           when "backpack"
+             Backpack
+           when "notebook"
+             Notebook
+           when "glasses"
+             Glasses
+           else
+             LostObject
+           end
   end
 
   # Método auxiliar para generar la dirección de una búsqueda

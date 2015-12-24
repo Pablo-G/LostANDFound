@@ -5,6 +5,7 @@ class LostObject < ActiveRecord::Base
   has_many :images
   accepts_nested_attributes_for :images, allow_destroy: true,
                                 reject_if: :all_blank
+  actable                       # Para la herencia
 
   validates :user, presence: true
 
@@ -20,5 +21,9 @@ class LostObject < ActiveRecord::Base
     OR lower(description) LIKE lower(?)",
     "%#{search}%", 
     "%#{search}%")
+  end
+  
+  def self.types
+    [:phone, :laptop, :backpack, :notebook, :glasses, :other]
   end
 end

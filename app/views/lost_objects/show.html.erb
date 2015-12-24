@@ -11,13 +11,12 @@
         <div class="product-details"><!--product-details-->
           <div class="col-sm-5">
 
-            <div id="images" class="carousel slide" data-ride="carousel">
-
-              <% if @lost_object.images.empty? %>
-                <div class="view-product">
-                  <%= image_tag asset_path "original/missing.jpg" %>
-                </div>
-              <% else %>
+            <% if @lost_object.images.empty? %>
+              <div class="view-product">
+                <%= image_tag asset_path "original/missing.jpg" %>
+              </div>
+            <% else %>
+              <div id="images" class="carousel slide" data-ride="carousel">
                 <div class="view-product">
 
                   <div class="carousel-inner" role="listbox">
@@ -48,10 +47,10 @@
 		    <i class="fa fa-angle-right"></i>
                   </a>
                 </div>
+              </div>
 
-              <% end %>
-                
-            </div>
+            <% end %>
+            
           </div>
 
           
@@ -65,35 +64,46 @@
                 </p>
                 <p><strong>Enviado por:</strong> <%= @lost_object.user.name %></p>
                 <p><%= @lost_object.description %></p>
-                <% if false %>
-                  <strong>Tipo:</strong> <%= @lost_object.actable_type %> </br>
 
-                  <% specific = @lost_object.specific %>
-                  <% if specific.has_attribute? :brand %>
-                    <strong>Marca:</strong> <%= specific.brand %> </br>
-                  <% end %>
-                  <% if specific.has_attribute? :model %>
-                    <strong>Modelo:</strong> <%= specific.model %> </br>
-                  <% end %>
-                  <% if specific.has_attribute? :company %>
-                    <strong>Compañía telefónica:</strong> <%= specific.company %> </br>
-                  <% end %>
-                  <% if specific.has_attribute?(:case) && specific.case %>
-                    Tiene funda.</br>
-                  <% end %>
-                  <% if specific.has_attribute?(:cracked_screen) &&
-                      specific.cracked_screen %>
-                    Tiene la pantalla rota.</br>
-                  <% end %>
+                <p><strong>Categoría:</strong> <%= @lost_object.actable_type %></p>
+
+                <% case @specific %>
+                <% when Phone %>
+                  <p><strong>Marca:</strong> <%= @specific.brand %></p>
+                  <p><strong>Modelo:</strong> <%= @specific.model %></p>
+                  <p><strong>Compañía telefónica:</strong> <%= @specific.company %></p>
+                  <p><strong>¿Tiene funda?</strong>
+                    <%= @specific.case ? "Sí" : "No" %></p>
+                  <p><strong>¿Tiene la pantalla rota?</strong>
+                    <%= @specific.cracked_screen ? "Sí" : "No" %></p>
+
+                <% when Laptop %>
+                  <p><strong>Marca:</strong> <%= @specific.brand %></p>
+                  <p><strong>Modelo:</strong> <%= @specific.model %></p>
+
+                <% when Backpack %>
+                  <p><strong>Marca:</strong> <%= @specific.brand %></p>
+                  <p><strong>Tamaño:</strong> <%= @specific.size %></p>
+
+                <% when Notebook %>
+                  <p><strong>Tipo:</strong> <%= @specific.type %></p>
+                  <p><strong>Tamaño:</strong> <%= @specific.size %></p>
+
+                <% when Glasses %>
+                  <p><strong>Marca:</strong> <%= @specific.brand %></p>
+                  <p><strong>¿Son lentes de sol?</strong>
+                    <%= @specific.sunglasses ? "Sí" : "No" %></p>
+                  
                 <% end %>
-                  </br>
-                  <button type="button" class="btn btn-fefault cart">
-                    <i class="fa "></i>
-                    Contactar
-                  </button>
-                  <% if @lost_object.authorized? current_user %>
-                    <p><%= link_to 'Eliminar', @lost_object, method: :delete %></p>
-                  <% end %>
+                
+                <br/>
+                <button type="button" class="btn btn-fefault cart">
+                  <i class="fa "></i>
+                  Contactar
+                </button>
+                <% if @lost_object.authorized? current_user %>
+                  <p><%= link_to 'Eliminar', @lost_object, method: :delete %></p>
+                <% end if @specific %>
               </span>
             </div><!--/product-information-->
           </div>

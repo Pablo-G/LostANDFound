@@ -11,16 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220233406) do
+ActiveRecord::Schema.define(version: 20151224000523) do
 
   create_table "backpacks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "size"
+    t.string   "brand"
   end
 
   create_table "glasses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "brand"
+    t.boolean  "sunglasses"
   end
 
   create_table "images", force: :cascade do |t|
@@ -40,6 +44,7 @@ ActiveRecord::Schema.define(version: 20151220233406) do
     t.string   "model"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "size"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -67,6 +72,8 @@ ActiveRecord::Schema.define(version: 20151220233406) do
   create_table "notebooks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "size"
+    t.string   "type"
   end
 
   create_table "phones", force: :cascade do |t|

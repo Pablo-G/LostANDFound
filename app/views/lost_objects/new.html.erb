@@ -2,41 +2,6 @@
   ¡Encontré algo!
 <% end %>
 
-<!-- Aun no estamos listos -->
-<% if false %>
-<!--
-  <%= f.label :actable_type, "Tipo" %>
-  <%= f.select :actable_type,
-  options_for_select(LostObject.types, :other) %>
-  </br>
-
-  <h3>Campos específicos por tipo. Deben ocultarse según 'Tipo' usando JavaScript</h3>
-
-  <p>phone</p>
-  <%= f.label :brand, "Marca" %>
-  <%= f.text_field :brand %>
-  </br>
-  
-  <%= f.label :model, "Modelo" %>
-  <%= f.text_field :model %>
-  </br>
-  
-  <%= f.label :company, "Compañía telefónica" %>
-  <%= f.text_field :company %>
-  </br>
-
-  <%= f.label :case, "¿Tiene funda?" %>
-  <%= f.check_box :case %>
-  </br>
-
-  <%= f.label :cracked_screen, "¿Tiene la pantalla rota?" %>
-  <%= f.check_box :cracked_screen %>
-  </br>
-  
-  -->
-<% end %>
-
-
 <section id="form"><!--form-->
   <div class="container">
     <div class="row">
@@ -66,11 +31,84 @@
             <h6>Descripción</h6>
             <%= f.text_area :description,
             class: "form-control", rows: "3" %>
-  
+
+            
+            <h6>Categoría</h6>
+            <%=  f.select :actable_type,
+            options_for_select(LostObject.types, :other),
+                {}, class: ["form-control", "type-selector"] %>
+
+            <div class="specific-input" data-type="phone">
+              <%= f.fields_for 'phone' do |phone_form| %>
+                <h6>Marca</h6>
+                <%= phone_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <h6>Modelo</h6>
+                <%= phone_form.text_field :model,
+                    placeholder: "Modelo", class: "form-control" %>
+                <h6>Compañía telefónica:</h6>
+                <%= phone_form.text_field :company,
+                    placeholder: "Compañía telefónica", class: "form-control" %>
+                <div class="checkbox">
+                  <%= phone_form.label :case,
+                      (phone_form.check_box :case) + "¿Tiene funda?" %>
+                </div>
+                <div class="checkbox">
+                  <%= phone_form.label :cracked_screen,
+                      (phone_form.check_box :cracked_screen) + "¿Tiene la pantalla rota?" %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="laptop">
+              <%= f.fields_for 'laptop' do |laptop_form| %>
+                <h6>Marca</h6>
+                <%= laptop_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <h6>Modelo</h6>
+                <%= laptop_form.text_field :model,
+                    placeholder: "Modelo", class: "form-control" %>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="backpack">
+              <%= f.fields_for 'backpack' do |backpack_form| %>
+                <h6>Marca</h6>
+                <%= backpack_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <h6>Tamaño</h6>
+                <%= backpack_form.text_field :size,
+                    placeholder: "Tamaño", class: "form-control" %>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="notebook">
+              <%= f.fields_for 'notebook' do |notebook_form| %>
+                <h6>Tipo</h6>
+                <%= notebook_form.text_field :type,
+                    placeholder: "Tipo", class: "form-control" %>
+                <h6>Tamaño</h6>
+                <%= notebook_form.text_field :size,
+                    placeholder: "Tamaño", class: "form-control" %>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="glasses">
+              <%= f.fields_for 'glasses' do |glasses_form| %>
+                <h6>Marca</h6>
+                <%= glasses_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <div class="checkbox">
+                  <%= glasses_form.label :sunglasses,
+                      (glasses_form.check_box :sunglasses) + "¿Son lentes de sol?" %>
+                </div>
+              <% end %>
+            </div>
+            
             <%= content_tag :button, :type => :submit,
             :class => ["btn", "btn-default"] do%>
               Enviar
-            <% end %>
+            <% end %>            
           
         </div>
 
