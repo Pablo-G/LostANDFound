@@ -10,6 +10,8 @@ gem 'authlogic'
 gem 'paperclip'
 gem 'active_record-acts_as'
 gem 'font-awesome-rails'
+gem 'tzinfo-data'
+gem 'coffee-script-source', '1.8.0'
 
 group :development, :test do
 end
