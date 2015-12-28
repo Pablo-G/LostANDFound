@@ -25,11 +25,24 @@
         
         <p><%= link_to 'Editar perfil', edit_user_path %></p>
 
+        <div class="fullview">
+          <% if @user.lost_objects %>
+            <h2>Objetos encontrados</h2>
+            <%= render @user.lost_objects %>
+          <% end %>
+        </div>
 
-        <% if @user.lost_objects %>
-          <h2>Objetos encontrados</h2>
-          <%= render @user.lost_objects %>
-        <% end %>
+        <div class="fullview">
+          <h2>Tickets</h2>
+          
+          <% @user.lost_objects.each do |lo| %>
+            <%= render lo.tickets %>
+          <% end %>
+          
+          <% if @user.tickets %>
+            <%= render @user.tickets %>
+          <% end %>
+        </div>
         
       </div>
     </div>

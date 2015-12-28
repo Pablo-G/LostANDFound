@@ -3,6 +3,7 @@ class LostObject < ActiveRecord::Base
   belongs_to :location
   belongs_to :user
   has_many :images
+  has_many :tickets
   accepts_nested_attributes_for :images, allow_destroy: true,
                                 reject_if: :all_blank
   actable                       # Para la herencia

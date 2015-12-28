@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224000523) do
+ActiveRecord::Schema.define(version: 20151228032615) do
 
   create_table "backpacks", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -82,6 +82,24 @@ ActiveRecord::Schema.define(version: 20151224000523) do
     t.string   "company"
     t.boolean  "case"
     t.boolean  "cracked_screen"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.integer  "ticket_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.text     "message"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer  "lost_object_id"
+    t.integer  "user_id"
+    t.boolean  "status"
+    t.date     "opened_at"
+    t.boolean  "new_entry"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

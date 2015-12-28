@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :user_sessions, only: :create
   resources :lost_objects
+  resources :tickets
   
   # Un ejemplo de cómo crear rutas para páginas "estáticas"
   # get '/ejemplo', to: 'pages#ejemplo'
@@ -27,4 +28,8 @@ Rails.application.routes.draw do
 
   # Para pedir ubicaciones
   get '/locations', to: 'locations#index', as: :location
+
+  # Tickets
+  post '/replies', to: 'tickets#create_reply'
+
 end

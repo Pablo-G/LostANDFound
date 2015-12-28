@@ -26,6 +26,7 @@ class LostObjectsController < ApplicationController
   def show
     @lost_object = LostObject.find(params[:id])
     @specific = @lost_object.specific
+    @ticket = Ticket.new
   end
   
   def new

@@ -1,0 +1,16 @@
+<% content_for :title do %>
+  Mis Tickets
+<% end %>
+
+<section>
+	<h1 style="text-align: center">Tickets</h1>
+	<div style="width: 35%">
+		<% @user.lost_objects.each do |lo| %>
+      <%= render lo.tickets %>
+    <% end %>
+
+    <% if @user.tickets %>
+      <%= render @user.tickets %>
+    <% end %>
+	</div>
+</section>

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true
   has_many :lost_objects
+  has_many :tickets
+  has_many :replies
 
   # Constantes para los distintos roles.
   # Los valores están ordenados según privilegios

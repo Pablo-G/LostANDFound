@@ -1,0 +1,30 @@
+<% content_for :title do %>
+  Ticket #<%= @ticket.IDPrettyFormat %>
+<% end %>
+
+<section>
+	<h1 style="text-align: center">Tickets</h1>
+	<div style="width: 35%">
+		<% @user.lost_objects.each do |lo| %>
+          <%= render lo.tickets %>
+        <% end %>
+
+        <% if @user.tickets %>
+          <%= render @user.tickets %>
+        <% end %>
+	</div>
+	<div style="width: 65%">
+        <% if @ticket.replies %>
+          <%= render @ticket.replies %>
+        <% end %>
+        Responder:
+        <%= form_for @reply do |f| %>
+          <input name="ticket_id" type="hidden" value=<%= @ticket.id %> />
+          <%= f.text_area :message, class: "form-control", rows: "3" %>
+
+          <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
+          Enviar
+          <% end %>  
+        <% end %>  
+	</div>
+</section>
