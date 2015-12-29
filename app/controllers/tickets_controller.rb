@@ -57,14 +57,26 @@ class TicketsController < ApplicationController
   # Crea una nueva respuesta para el ticket
   def create_reply
     @newReply = Reply.new
-    @newReply.ticket = Ticket.find(params[:ticket_id])
+    @ticket = Ticket.find(params[:ticket_id])
+    @newReply.ticket = @ticket
     @newReply.message = params[:reply][:message]
     @newReply.user = current_user
     if @newReply.save
+      @ticket.update(:new_entry => true)
       redirect_to ticket_path(@newReply.ticket.id)
     else                     
       render :new
     end
+  end
+
+  # Cierra los Tickets
+  def update
+    @ticket = Ticket.find(params[:id])
+    if @ticket.update(:status => false)
+      redirect_to ticket_path(@ticket)
+    else                     
+      render :new
+    end    
   end
 
 end

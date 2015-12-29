@@ -17,14 +17,16 @@
         <% if @ticket.replies %>
           <%= render @ticket.replies %>
         <% end %>
-        Responder:
-        <%= form_for @reply do |f| %>
-          <input name="ticket_id" type="hidden" value=<%= @ticket.id %> />
-          <%= f.text_area :message, class: "form-control", rows: "3" %>
-
-          <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
-          Enviar
-          <% end %>  
-        <% end %>  
+        <% if @ticket.status %>
+          Responder:
+          <%= form_for @reply do |f| %>
+            <input name="ticket_id" type="hidden" value=<%= @ticket.id %> />
+            <%= f.text_area :message, class: "form-control", rows: "3" %>
+            <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
+            Enviar
+            <% end %>  
+            <%= link_to 'Cerrar Ticket', @ticket, method: :put %>
+          <% end %> 
+        <% end %> 
 	</div>
 </section>
