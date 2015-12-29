@@ -13,11 +13,11 @@ class TicketsController < ApplicationController
   # Método show. Solo muestra el ticket si el usuario actual es el dueño del objeto o el dueño del ticket.
   def show
     if current_user
-    	@obOwner = User.find(LostObject.find(Ticket.find(params[:id]).lost_object_id).user_id)
-    	@tiOwner = User.find(Ticket.find(params[:id]).user_id)
+      @ticket = Ticket.find(params[:id])
+    	@obOwner = @ticket.lost_object.user
+    	@tiOwner = @ticket.user
     	if current_user == @obOwner || current_user == @tiOwner
           @user = current_user
-          @ticket = Ticket.find(params[:id])
           @reply = Reply.new
     	else
     	  redirect_to root_path

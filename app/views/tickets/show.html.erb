@@ -10,12 +10,12 @@
         <div class="ticket_mess">
         	<div style="width: 45%">
         		<% @user.lost_objects.each do |lo| %>
-                  <%= render lo.tickets %>
-                <% end %>
+              <%= render lo.tickets %>
+            <% end %>
 
-                <% if @user.tickets %>
-                  <%= render @user.tickets %>
-                <% end %>
+            <% if @user.tickets %>
+              <%= render @user.tickets %>
+            <% end %>
         	</div>
         	<div style="width: 55%">
                 <% if @ticket.replies %>

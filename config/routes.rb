@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   resources :user_sessions, only: :create
   resources :lost_objects
-  resources :tickets
+  resources :tickets, only: [:index, :show, :create, :update]
   
   # Un ejemplo de cómo crear rutas para páginas "estáticas"
   # get '/ejemplo', to: 'pages#ejemplo'
