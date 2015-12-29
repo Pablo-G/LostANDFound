@@ -12,6 +12,13 @@
         <% end %>
       </li>
       <li>
+        <% if current_user.has_notif? %>
+          !N Tickets
+        <% else %>
+          Tickets
+        <% end %>
+      </li>
+      <li>
         <%= link_to sign_out_path, method: :delete do %>
           Cerrar sesión
         <% end %>

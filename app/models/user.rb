@@ -23,4 +23,22 @@ class User < ActiveRecord::Base
     role == ADMIN
   end
   
+  def has_notif?
+    lost_objects.each do |lo|
+      lo.tickets.each do |lti|
+        if lti.new_entry&!lti.lastReply?(self)
+          return true
+        end
+      end  
+    end
+    
+    tickets.each do |ti|
+      if ti.new_entry&!ti.lastReply?(self)
+        return true
+      end
+    end
+
+    return false
+  end
+
 end
