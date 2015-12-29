@@ -25,4 +25,12 @@ $(document).ready(function() {    // Después de cargar
         inputTimer = setTimeout(function(e) {$("#search-form").submit();},
                                 inputTimerInterval);
     });
+
+    $(window).on("popstate", function(e){
+        var state = $(e.originalEvent.state)
+        if(state != null && state.attr("page") !== undefined){
+            window.location.replace(state.attr("page"));
+        }
+    });
+
 });
