@@ -13,9 +13,14 @@
       </li>
       <li>
         <% if current_user.has_notif? %>
-          !N Tickets
+        <a href="/tickets" style="color: #FFA500">
+          <i class="fa fa-exclamation-circle"></i>
+          <i class="fa fa-ticket"></i>
+        </a>
         <% else %>
-          Tickets
+        <a href="/tickets">
+          <i class="fa fa-ticket"></i>
+        </a>
         <% end %>
       </li>
       <li>
