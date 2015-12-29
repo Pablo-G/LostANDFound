@@ -41,4 +41,21 @@ class User < ActiveRecord::Base
     return false
   end
 
+  def deliver_verification_instructions!
+    reset_perishable_token!
+    UserMailer.verification_instructions(self).deliver_now
+  end
+
+  def verify!
+    self.verified = true;
+    self.save
+    UserSession.create(self)
+  end
+
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    UserMailer.password_reset(self).deliver_now
+  end
+
 end

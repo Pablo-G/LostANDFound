@@ -1,0 +1,11 @@
+<%= form_for @user, :url => password_reset_path(@user.perishable_token), :method => "patch" do %>
+  
+  <%= render 'shared/errors', object: @user %>
+  
+  <%= password_field_tag :password, "", placeholder: "Contraseña" %>
+  <%= password_field_tag :password_confirmation, "", placeholder: "Confirma tu Contraseña" %>
+
+  <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
+    Enviar
+  <% end %>
+<% end %>

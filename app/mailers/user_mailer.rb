@@ -1,11 +1,18 @@
+# coding: utf-8
 class UserMailer < ApplicationMailer
-	default from:'dailexgo@gmail.com'
 
-	# Manda un correo de confirmación al usuario, creando un número de valiación
-	# aleatorio e incluyéndolo en el correo.
-	def validation_email(user)
-		@user = user
-		@url = "#{default_url_options[:host]}/validate/#{@user.id}"
-		mail(to: @user.email, subject: 'Bienvenido a LostAndFound')
-	end
+  # La acción para los correos de verificación
+  def verification_instructions(user)
+    @user = user
+    @verification_url = verify_url(@user.perishable_token)
+    email_with_name = %("#{@user.name}" <#{@user.email}>)
+    mail(to: email_with_name, subject: "Bienvenido a LostANDFound" )
+  end
+
+  def password_reset(user)
+    @user = user
+    mail(to: %("#{@user.name}" <#{@user.email}>),
+         subject: "Instrucciones para recuperación de contraseña")
+  end
+  
 end

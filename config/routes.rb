@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   # Un ejemplo de cómo crear rutas para páginas "estáticas"
   # get '/ejemplo', to: 'pages#ejemplo'
 
-  get 'validate/:id', to:'users#validate'
   # Define la raiz
   root 'pages#index'
   
@@ -32,4 +31,9 @@ Rails.application.routes.draw do
   # Tickets
   post '/replies', to: 'tickets#create_reply'
 
+  # Verificación de usuarios
+  get '/verify/:token', to: 'users#verify', as: :verify
+
+  # Recuperación de contraseña
+  resources :password_resets, only: [:new, :create, :edit, :update]
 end
