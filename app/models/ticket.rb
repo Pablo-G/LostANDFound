@@ -8,4 +8,21 @@ class Ticket < ActiveRecord::Base
   def IDPrettyFormat
   	return "%06d" % id
   end
+
+  # Dice si u es el último usuario que publico una respuesta
+  def lastReply?(u)
+  	if replies.last
+  		if lastReplyU == u
+  			return true
+  		end
+  	end
+  	return false
+  end
+
+  private
+
+  # Regresa al último usuario que publico una respuesta 
+  def lastReplyU
+  	return replies.last.user
+  end
 end

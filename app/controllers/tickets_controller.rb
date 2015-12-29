@@ -18,6 +18,9 @@ class TicketsController < ApplicationController
     	@tiOwner = @ticket.user
     	if current_user == @obOwner || current_user == @tiOwner
           @user = current_user
+          if !@ticket.lastReply?(current_user)
+            @ticket.update(:new_entry => false)
+          end
           @reply = Reply.new
     	else
     	  redirect_to root_path

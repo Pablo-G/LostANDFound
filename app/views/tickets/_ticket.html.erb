@@ -1,6 +1,14 @@
-<a class="ticket" href="<%= ticket_path(ticket) %>" <% if ticket.new_entry %>id="ticket_not"<% end %>>
+<a class="ticket" href="<%= ticket_path(ticket) %>"
+    <% if ticket.new_entry&!ticket.lastReply?(current_user) %>
+    id="ticket_not"
+    <% end %>
+>
     <h1 id="ticket_title">
-    	<p id="ticket_ne"><% if ticket.new_entry %>⦿<% end %></p>
+    	<p id="ticket_ne">
+            <% if ticket.new_entry&!ticket.lastReply?(current_user) %>
+            ⦿
+            <% end %>
+        </p>
     	<p>Ticket #<%= ticket.IDPrettyFormat %></p>
     	<p>|</p>
     	<p><%= ticket.opened_at %></p>
