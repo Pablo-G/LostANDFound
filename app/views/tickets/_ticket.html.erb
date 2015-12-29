@@ -1,5 +1,10 @@
-<a class="ticket" href="<%= ticket_path(ticket) %>" <% if ticket.new_entry %> style="background:#FE980F" <% end %>>
-    <h1><% if ticket.new_entry %>! <% end %>Ticket #<%= ticket.IDPrettyFormat %> | <%= ticket.opened_at %></h1>
+<a class="ticket" href="<%= ticket_path(ticket) %>" <% if ticket.new_entry %>id="ticket_not"<% end %>>
+    <h1 id="ticket_title">
+    	<p id="ticket_ne"><% if ticket.new_entry %>⦿<% end %></p>
+    	<p>Ticket #<%= ticket.IDPrettyFormat %></p>
+    	<p>|</p>
+    	<p><%= ticket.opened_at %></p>
+    </h1>
     <h2><%= ticket.user.name %></h2>
     <% if ticket.status %>
       <h2>Abierto</h2>        

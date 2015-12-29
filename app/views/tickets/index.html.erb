@@ -2,15 +2,21 @@
   Mis Tickets
 <% end %>
 
-<section>
-	<h1 style="text-align: center">Tickets</h1>
-	<div style="width: 35%">
-		<% @user.lost_objects.each do |lo| %>
-      <%= render lo.tickets %>
-    <% end %>
+<section id="form">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-sm-offset-1">
+      	<h1 style="text-align: center">Tickets</h1>
+      	<div>
+      		<% @user.lost_objects.each do |lo| %>
+            <%= render lo.tickets %>
+          <% end %>
 
-    <% if @user.tickets %>
-      <%= render @user.tickets %>
-    <% end %>
-	</div>
+          <% if @user.tickets %>
+            <%= render @user.tickets %>
+          <% end %>
+      	</div>
+      </div>
+    </div>
+  </div>
 </section>

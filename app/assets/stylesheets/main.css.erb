@@ -2535,16 +2535,16 @@ h2.title {
     width: 100%;
     display: inline-block;
     margin: 2px;
-    border: darkorange;
-    border-style: double;
+    padding: 10px;
+    border-left: #DEDEDE;
+    border-left-style: solid;
     color: black;
 }
 
 .ticket:hover{
-    border: white;
-    color: darkorange;
-    border: darkorange;
-    border-style: dashed;
+    border-left: #919191;
+    border-left-style: solid;
+    color: black;
 }
 
 .ticket h1{
@@ -2558,4 +2558,54 @@ h2.title {
     font-weight: normal;
     margin-top: 1px;
     margin-bottom: 0px;
+}
+
+.ticket p{
+    display: inline;
+}
+
+#ticket_ne{
+    font-size: 18px;
+    color: orange;
+}
+
+#ticket_not{
+    border-left:#FFD684;
+    border-left-style: solid;
+}
+
+#ticket_not:hover{
+    border-left:#FFA500;
+    border-left-style: solid;
+    color: black;
+}
+
+.ticket_mess{
+    display: flex;
+}
+
+.reply{
+    width: 100%;
+    display: block;
+    margin: 2px;
+    color: black;
+}
+
+.reply h1{
+    font-size: 23px;
+    margin-top: 1px;
+    margin-bottom: 0px;
+}
+
+.reply h2{
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 1px;
+    margin-bottom: 0px;
+}
+
+.reply p{
+    font-size: 15px;
+    text-align: justify;
+    overflow: auto;
 }
