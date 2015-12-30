@@ -72,14 +72,24 @@ class TicketsController < ApplicationController
     end
   end
 
-  # Cierra los Tickets
-  def update
-    @ticket = Ticket.find(params[:id])
+  # Cierra un Ticket y marca al objeto como recuperado.
+  def recovered
+    @ticket = Ticket.find(params[:ticket_id])
+    @lost_object = @ticket.lost_object
+    @lost_object_ow = "1"==params[:lost_object_ow]
     if @ticket.update(:status => false)
-      redirect_to ticket_path(@ticket)
+      if @lost_object_ow
+        if @lost_object.update(:state => true)
+          redirect_to ticket_path(@ticket)
+        else
+          render :new
+        end
+      else
+        redirect_to ticket_path(@ticket)
+      end
     else                     
       render :new
-    end    
+    end 
   end
 
 end

@@ -97,13 +97,16 @@
                 <% end %>
                 
                 <br/>
-                <% if !(@lost_object.user == current_user) %>
+                <% if !@lost_object.state&!(@lost_object.user == current_user) %>
                   <%= form_for @ticket do |f| %>
                     <input name="lost_object_id" type="hidden" value=<%= @lost_object.id %> />
                     <%= content_tag :button, :type => :submit, :class => ["btn", "btn-fefault cart"] do%>
                     Contactar!
                     <% end %>  
                   <% end %> 
+                <% end %>
+                <% if @lost_object.state %>
+                  Este objeto ha sido recuperado por su dueño :)
                 <% end %>
 
                 <% if @lost_object.authorized? current_user %>
