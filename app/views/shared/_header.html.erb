@@ -12,10 +12,10 @@
           <div class="search_box pull-left">
             <%= form_tag(lost_objects_path, :method => "get",
                          id: "search-form", "search-page": ("true" if @search_page)) do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Buscar", autofocus: "true" %>
-          </div>
-          <!--<%= submit_tag "Buscar" %>-->
+              <%= text_field_tag :search, @search_options[:search],
+              placeholder: "Buscar", autofocus: "true" %>
             <% end %>
+          </div>
             <%= render 'shared/session' %>
         </div>
       </div>
