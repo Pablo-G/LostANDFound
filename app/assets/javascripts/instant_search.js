@@ -1,18 +1,22 @@
+function submit_with_ajax(form){
+    form.submit(function(e) {
+        $.ajax({
+            type: form.attr("method"),
+            url: form.attr("action"),
+            data: $("#advanced-search-form, #search-form").serialize(),
+            dataType: "script"
+        });
+        
+        e.preventDefault();     // Evita que envie la solicitud normalmente
+    });
+}
+
 $(document).ready(function() {    // Después de cargar
     // Hace que #search-form envie la solicitud via ajax si está
     // en la página de búsqueda
     var form = $("#search-form");
     if (form.attr("search-page") !== undefined){
-        form.submit(function(e) {
-            $.ajax({
-                type: form.attr("method"),
-                url: form.attr("action"),
-                data: form.serialize(),
-                dataType: "script"
-            });
-            
-            e.preventDefault();     // Evita que envie la solicitud normalmente
-        });
+        submit_with_ajax(form);
     }
     
     // Hace que #search envie la solucitud cuando hay entrada
@@ -33,4 +37,25 @@ $(document).ready(function() {    // Después de cargar
         }
     });
 
+
+    // Hace que #advanced-search-form envie solicitudes con ajax
+    var adv_form = $("#advanced-search-form");
+    submit_with_ajax(adv_form);
+    // Hace que envie una solicitud en cada cambio
+    adv_form.change(function(e){
+        adv_form.submit();
+    });
+
+    $(".checkbox-using").change(function(){
+        var checkbox = $(this);
+        var target = $("#" + checkbox.attr("data-target"));
+        target.prop("disabled", !checkbox.is(":checked"));
+        if(checkbox.attr("data-target") == "actable_type"){
+            var selected_type = $(".type-selector").val();
+            var selected_inputs =
+                $(".specific-input .toggleable [data-type='"
+                  + selected_type + "']");
+            selected_inputs.find("*").prop("disabled", !checkbox.is(":checked"));
+        }
+    });
 });

@@ -9,7 +9,6 @@ class LocationsController < ApplicationController
       @locations = Location.roots
     end
 
-    puts @locations.to_json(:only => [:id, :name])
     respond_to do |format|
       format.json { render json: @locations.to_json(:only => [:id, :name]) }
     end

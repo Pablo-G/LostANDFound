@@ -5,13 +5,33 @@ class LostObjectsController < ApplicationController
   # Muestra todos los objetos
   # Es temporal mientras se implementan búsquedas
   def index
-    @search_page = true;
+    @search_page = true
+    @lost_objects = LostObject.includes(:images).all # Selecciona todos los objetos
+    @search_options = params.permit(:page, :search, :location_id,
+                                    :actable_type,
+                                    { params[:actable_type] => (specific_whitelist params) })
+                                    
+    # Si hay una búsqueda, limita según los parámetros
     if params[:search]
-      @lost_objects = LostObject.search(params[:search]).order("name")
-    else
-      @lost_objects = LostObject.all.order('name')
+      @lost_objects = @lost_objects.search(params[:search])
+    end
+    
+    # Si hay una sesión, oculta los objetos enviados por el usuario
+    if current_user
+      @lost_objects = @lost_objects.where.not(user_id: current_user.id)
+    end
+    
+    # Si se seleccionó el lugar, busca los lugares relacionados
+    if params[:location_id] && Location.exists?(id: params[:location_id])
+      location = Location.find(params[:location_id])
+      @lost_objects = @lost_objects.where(location: location.related)
     end
 
+    # Filtra
+    if params[:actable_type]
+      type = specific_class params
+      @lost_objects = @lost_objects.where(actable_type: type)
+    end
 
     # Esto debe ir al final del método, regresa sólo los adecuados
     # para la página de búsqueda
@@ -82,9 +102,8 @@ class LostObjectsController < ApplicationController
     general = p.permit(lost_object_whitelist)
     specific = {}
     if p[p[:actable_type]]
-      specific = p.require(p[:actable_type]).permit(specific_whitelist)
+      specific = p.require(p[:actable_type]).permit(specific_whitelist p)
     end
-    puts general.merge specific
     general.merge specific
   end
 
@@ -95,8 +114,8 @@ class LostObjectsController < ApplicationController
   end
   
   # Regresa los atributos permitidos en el tipo específico
-  def specific_whitelist
-    return case params[:lost_object][:actable_type]
+  def specific_whitelist(hash)
+    return case hash[:actable_type]
            when "phone"
              [:brand, :model, :company, :case, :cracked_screen]
            when "laptop"
@@ -114,12 +133,12 @@ class LostObjectsController < ApplicationController
 
   # Crea un objeto de un tipo específico
   def create_specific
-    (specific_class).new(lost_objects_params)
+    (specific_class params[:lost_object]).new(lost_objects_params)
   end
 
   # Da la clase específica de un objeto
-  def specific_class
-    return case params[:lost_object][:actable_type]
+  def specific_class(hash)
+    return case hash[:actable_type]
            when "phone"
              Phone
            when "laptop"
@@ -136,9 +155,13 @@ class LostObjectsController < ApplicationController
   end
 
   # Método auxiliar para generar la dirección de una búsqueda
-  def search_page_path(query=nil,page=nil)
-    lost_objects_path(search: (query if query && !query.empty?),
-                      page: page)
+  # Recibe hasta dos hash de opciones, con los valores del segundo
+  # tomando prioridad sobre el primero
+  def search_page_path(options1={}, options2={})
+    ops = options1.merge options2
+    ops[:search] = nil unless ops[:search] && !ops[:search].blank?
+    ops[:location_id] = nil unless ops[:location_id] && ops[:location_id].to_i != 0
+    lost_objects_path ops
   end
   helper_method :search_page_path
   

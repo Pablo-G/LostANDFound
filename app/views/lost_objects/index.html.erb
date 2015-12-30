@@ -7,55 +7,118 @@
     <div class="row">
       <div class="col-sm-3">
 	<div class="left-sidebar">
-          
-	  <h2>Categorias</h2>
-	  <div class="panel-group category-products"
-               id="accordian"><!--category-products-->
+          <h2>Búsqueda avanzada</h2>
 
-	    <div class="panel panel-default">
-	      <div class="panel-heading">
-		<h4 class="panel-title">
-		  <a data-toggle="collapse" data-parent="#accordian" href="#cat1">
-		    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-		    Categoría 1
-		  </a>
-		</h4>
-	      </div>
-	      <div id="cat1" class="panel-collapse collapse">
-		<div class="panel-body">
-		  <ul>
-		    <li><a href="#">Categoría 1.1</a></li>
-		    <li><a href="#">Categoría 1.2</a></li>
-		  </ul>
-		</div>
-	      </div>
-	    </div>
-	    
-	    <div class="panel panel-default">
-	      <div class="panel-heading">
-		<h4 class="panel-title">
-		  <a data-toggle="collapse" data-parent="#accordian" href="#cat2">
-		    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                    Categoría 2
-		  </a>
-		</h4>
-	      </div>
-	      <div id="cat2" class="panel-collapse collapse">
-		<div class="panel-body">
-		  <ul>
-		    <li><a href="#">Categoría 2.1</a></li>
-		    <li><a href="#">Categoría 2.2</a></li>
-		  </ul>
-		</div>
-	      </div>
-	    </div>
-	    <div class="panel panel-default">
-	      <div class="panel-heading">
-		<h4 class="panel-title"><a href="#">Categoría 3</a></h4>
-	      </div>
-	    </div>
-	  </div><!--/category-products-->
+          <%= form_tag(lost_objects_path, :method => "get",
+                       id: "advanced-search-form") do %>
+            
+            <h6>¿Dónde lo perdiste?</h6>
+            <ul id="selected-locations">
+            </ul>
+            <%= select_tag nil,
+            options_for_select(
+                [['Seleccionar ubicación', '']] +
+                Location.roots.map { |l| [l.name, l.id] },
+                ''
+            ),
+            class: ["form-control", "location-selector"] %>
+            <%= hidden_field_tag :location_id, 0,
+            id: "lost_object_location_id" %>
 
+            
+            <h6>Categoría</h6>
+            <div class="checkbox">
+              <%= check_box_tag nil, '', false,
+              {"class" => "checkbox-using",
+               "data-target" => "actable_type"} %>
+              <%= select_tag :actable_type,
+              options_for_select(LostObject.types, :other),
+                  class: ["form-control", "type-selector"],
+                      disabled: true %>
+            </div>
+
+            <div class="specific-input" data-type="phone">
+              <%= fields_for 'phone' do |phone_form| %>
+                <h6>Marca</h6>
+                <%= toggleable_tag "phone_brand", 
+                (phone_form.text_field :brand,
+                 placeholder: "Marca", class: "form-control") %>
+                
+                <h6>Modelo</h6>
+                <%= toggleable_tag "phone_model",
+                (phone_form.text_field :model,
+                      placeholder: "Modelo", class: "form-control") %>
+                
+                <h6>Compañía telefónica:</h6>
+                <%= toggleable_tag "phone_company",
+                (phone_form.text_field :company,
+                 placeholder: "Compañía telefónica", class: "form-control") %>
+
+                <%= toggleable_tag "phone_case",
+                (content_tag :div, class: "checkbox" do
+                   phone_form.label :case,
+                   (phone_form.check_box :case) + "¿Tiene funda?"
+                 end
+                ) %>
+                
+                <div class="checkbox">
+                  <%= check_box_tag nil, '', false,
+                  {"class" => ["checkbox-using", "toggleable"],
+                   "data-target" => "phone_brand"} %>
+                  <div class="checkbox">
+                    <%= phone_form.label :cracked_screen,
+                        (phone_form.check_box :cracked_screen) + "¿Tiene la pantalla rota?" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="laptop">
+              <%= fields_for 'laptop' do |laptop_form| %>
+                <h6>Marca</h6>
+                <%= laptop_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <h6>Modelo</h6>
+                <%= laptop_form.text_field :model,
+                    placeholder: "Modelo", class: "form-control" %>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="backpack">
+              <%= fields_for 'backpack' do |backpack_form| %>
+                <h6>Marca</h6>
+                <%= backpack_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <h6>Tamaño</h6>
+                <%= backpack_form.text_field :size,
+                    placeholder: "Tamaño", class: "form-control" %>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="notebook">
+              <%= fields_for 'notebook' do |notebook_form| %>
+                <h6>Tipo</h6>
+                <%= notebook_form.text_field :type,
+                    placeholder: "Tipo", class: "form-control" %>
+                <h6>Tamaño</h6>
+                <%= notebook_form.text_field :size,
+                    placeholder: "Tamaño", class: "form-control" %>
+              <% end %>
+            </div>
+
+            <div class="specific-input" data-type="glasses">
+              <%= fields_for 'glasses' do |glasses_form| %>
+                <h6>Marca</h6>
+                <%= glasses_form.text_field :brand,
+                    placeholder: "Marca", class: "form-control" %>
+                <div class="checkbox">
+                  <%= glasses_form.label :sunglasses,
+                      (glasses_form.check_box :sunglasses) + "¿Son lentes de sol?" %>
+                </div>
+              <% end %>
+            </div>
+            
+          <% end %>
           
         </div>
       </div>
