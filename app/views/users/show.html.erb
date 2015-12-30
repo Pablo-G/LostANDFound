@@ -28,20 +28,14 @@
         <div class="fullview">
           <% if @user.lost_objects %>
             <h2>Objetos encontrados</h2>
-            <%= render @user.lost_objects %>
+            <%= render @user.lost_objects.includes(:images) %>
           <% end %>
         </div>
 
         <div class="fullview">
           <h2>Tickets</h2>
           
-          <% @user.lost_objects.each do |lo| %>
-            <%= render lo.tickets %>
-          <% end %>
-          
-          <% if @user.tickets %>
-            <%= render @user.tickets %>
-          <% end %>
+          <%= render @user.all_tickets %>
         </div>
         
       </div>
