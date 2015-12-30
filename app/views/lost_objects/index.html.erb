@@ -32,7 +32,8 @@
               {"class" => "checkbox-using",
                "data-target" => "actable_type"} %>
               <%= select_tag :actable_type,
-              options_for_select(LostObject.types, :other),
+              options_for_select(LostObject.types,
+                                 @search_options[:actable_type] || :other),
                   class: ["form-control", "type-selector"],
                       disabled: true %>
             </div>
@@ -56,10 +57,10 @@
 
                 <%= toggleable_tag "phone_case",
                 (content_tag :div, class: "checkbox" do
-                   phone_form.label :case,
-                   (phone_form.check_box :case) + "¿Tiene funda?"
+                 phone_form.label :case,
+                 (phone_form.check_box :case) + "¿Tiene funda?"
                  end
-                ) %>
+                ), "phone[has_case]" %>
 
                 <%= toggleable_tag "phone_cracked_screen",
                 (content_tag :div, class: "checkbox" do
@@ -67,7 +68,7 @@
                  (phone_form.check_box :cracked_screen) +
                  "¿Tiene la pantalla rota?"
                  end
-                ) %>
+                ), "phone[has_cracked_screen]" %>
                 
               <% end %>
             </div>
@@ -124,7 +125,7 @@
                  (glasses_form.check_box :sunglasses) +
                  "¿Son lentes de sol?"
                  end
-                ) %>
+                ), "glasses[has_sunglasses]" %>
               <% end %>
             </div>
             

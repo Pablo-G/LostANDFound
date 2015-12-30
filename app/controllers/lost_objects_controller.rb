@@ -12,8 +12,7 @@ class LostObjectsController < ApplicationController
     
     @search_page = true
     @lost_objects = LostObject.all # Selecciona todos los objetos
-    @search_options = params.permit(:page, :search, :location_id,
-                                    :actable_type,
+    @search_options = params.permit(:page, :search, :actable_type,
                                     { params[:actable_type] => (specific_whitelist params) })
                                     
     # Si hay una búsqueda, limita según los parámetros
@@ -180,8 +179,9 @@ class LostObjectsController < ApplicationController
 
       valid_bool_columns = ["case", "cracked_screen", "sunglasses"]
       valid_bool_columns.each do |c|
-        if p[c]
-          objs = objs.where(c => (p[c]=="1"))
+        if params[params[:actable_type]]["has_#{c}"]
+          bool = (p[c] && p[c]=="1") ? true : false
+          objs = objs.where(c => bool)
         end
       end
     end
