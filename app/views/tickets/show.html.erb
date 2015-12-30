@@ -21,7 +21,7 @@
                 <% if @ticket.replies %>
                   <%= render @ticket.replies %>
                 <% end %>
-                <% if @ticket.status %>
+                <% if @ticket.status || @user.is_mod? %>
                   Responder:
                   <%= form_for @reply do |f| %>
                     <input name="ticket_id" type="hidden" value=<%= @ticket.id %> />

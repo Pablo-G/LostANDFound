@@ -1,5 +1,14 @@
-<div class="reply">
-	<h1><%= User.find(reply.user_id).name %></h1>
+<div class="reply"
+	<% if reply.user.is_mod? %>
+		id="modReply"
+	<% end %>
+>
+	<h1>
+	<% if reply.user.is_mod? %>
+		[Moderador]
+	<% end %>
+	<%= reply.user.name %>
+	</h1>
 	<h2><%= reply.created_at %></h2>
 	<p><%= reply.message %></p>
 </div>

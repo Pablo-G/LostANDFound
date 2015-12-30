@@ -16,9 +16,9 @@ class TicketsController < ApplicationController
       @ticket = Ticket.find(params[:id])
     	@obOwner = @ticket.lost_object.user
     	@tiOwner = @ticket.user
-    	if current_user == @obOwner || current_user == @tiOwner
+    	if current_user == @obOwner || current_user == @tiOwner || current_user.is_mod?
           @user = current_user
-          if !@ticket.lastReply?(current_user)
+          if !@ticket.lastReply?(current_user) && !current_user.is_mod?
             @ticket.update(:new_entry => false)
           end
           @reply = Reply.new
