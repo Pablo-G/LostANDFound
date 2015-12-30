@@ -13,7 +13,10 @@
     	<p>|</p>
     	<p><%= ticket.opened_at %></p>
     </h1>
-    <h2><%= ticket.user.name %></h2>
+    <h2>
+        <p><%= ticket.lost_object.name %></p>
+        <p id="ticket_usern">[<%= ticket.user.name %>]</p>
+    </h2>
     <% if ticket.status %>
       <h2>Abierto</h2>        
     <% else %>
