@@ -2,6 +2,6 @@ $("#lost_objects").html( $(
     "<%= escape_javascript render 'search_response' %>"
 ) );
 
-var href = "<%= search_page_path params[:search], params[:page] %>"
+var href = "<%= raw search_page_path @search_options %>"
 
 window.history.pushState({page: href}, "", href);

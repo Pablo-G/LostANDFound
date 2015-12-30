@@ -8,7 +8,7 @@
     <ul>
       <li>
         <a class="search-page-link"
-           href="<%= search_page_path params[:search], 1 %>">Inicio</a>
+           href="<%= search_page_path @search_options, page: 1 %>">Inicio</a>
       </li>
       
       <% if @min_page != 1 %>
@@ -18,7 +18,7 @@
       <% (@min_page..@max_page).each do |n| %>
         <li class="<%= "active" if n==@page %>">
           <a class="search-page-link"
-             href="<%= search_page_path params[:search], n %>">
+             href="<%= search_page_path @search_options, page: n %>">
             <%= n %>
           </a>
         </li>
@@ -30,7 +30,7 @@
       
       <li>
         <a class="search-page-link"
-           href="<%= search_page_path params[:search], @pages %>">Fin</a>
+           href="<%= search_page_path @search_options, page: @pages %>">Fin</a>
       </li>
     </ul>
   </div>
