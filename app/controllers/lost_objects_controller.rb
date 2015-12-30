@@ -5,8 +5,13 @@ class LostObjectsController < ApplicationController
   # Muestra todos los objetos
   # Es temporal mientras se implementan búsquedas
   def index
+    params[:search] = nil unless params[:search] &&
+                                 !params[:search].blank?
+    params[:location_id] = nil unless params[:location_id] &&
+                                      params[:location_id].to_i != 0
+    
     @search_page = true
-    @lost_objects = LostObject.includes(:images).all # Selecciona todos los objetos
+    @lost_objects = LostObject.all # Selecciona todos los objetos
     @search_options = params.permit(:page, :search, :location_id,
                                     :actable_type,
                                     { params[:actable_type] => (specific_whitelist params) })
@@ -27,12 +32,12 @@ class LostObjectsController < ApplicationController
       @lost_objects = @lost_objects.where(location: location.related)
     end
 
-    # Filtra
+    # Filtra según el tipo
     if params[:actable_type]
-      type = specific_class params
-      @lost_objects = @lost_objects.where(actable_type: type)
+      @lost_objects = specific_objects
     end
 
+    @lost_objects = @lost_objects.includes(:images)
     # Esto debe ir al final del método, regresa sólo los adecuados
     # para la página de búsqueda
     limit = 15                  # Máximo número por página
@@ -154,13 +159,42 @@ class LostObjectsController < ApplicationController
            end
   end
 
+  # Regresa los objetos específicos a partir de una coleccion
+  def specific_objects
+    type = specific_class params
+    return @lost_objects.where("actable_type IS NULL") if type == LostObject
+    objs = @lost_objects.where(actable_type: type)
+    objs = type.where(id: objs.pluck(:actable_id))
+
+    # Si hay más parámetros
+    if params[params[:actable_type]]
+      p = params.require(params[:actable_type]).permit(specific_whitelist params)
+      valid_string_columns = ["brand", "model", "company", "size", "type"]
+      valid_string_columns.each do |c|
+        if p[c]
+          p[c].split.each do |w|
+            objs = objs.where("lower(#{c}) LIKE lower(?)", "%#{w}%")
+          end
+        end
+      end
+
+      valid_bool_columns = ["case", "cracked_screen", "sunglasses"]
+      valid_bool_columns.each do |c|
+        if p[c]
+          objs = objs.where(c => (p[c]=="1"))
+        end
+      end
+    end
+    
+    LostObject.where(actable_type: type,
+                     actable_id: objs.pluck(:id))
+  end
+
   # Método auxiliar para generar la dirección de una búsqueda
   # Recibe hasta dos hash de opciones, con los valores del segundo
   # tomando prioridad sobre el primero
   def search_page_path(options1={}, options2={})
     ops = options1.merge options2
-    ops[:search] = nil unless ops[:search] && !ops[:search].blank?
-    ops[:location_id] = nil unless ops[:location_id] && ops[:location_id].to_i != 0
     lost_objects_path ops
   end
   helper_method :search_page_path

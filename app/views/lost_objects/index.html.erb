@@ -60,61 +60,71 @@
                    (phone_form.check_box :case) + "¿Tiene funda?"
                  end
                 ) %>
+
+                <%= toggleable_tag "phone_cracked_screen",
+                (content_tag :div, class: "checkbox" do
+                   phone_form.label :cracked_screen,
+                 (phone_form.check_box :cracked_screen) +
+                 "¿Tiene la pantalla rota?"
+                 end
+                ) %>
                 
-                <div class="checkbox">
-                  <%= check_box_tag nil, '', false,
-                  {"class" => ["checkbox-using", "toggleable"],
-                   "data-target" => "phone_brand"} %>
-                  <div class="checkbox">
-                    <%= phone_form.label :cracked_screen,
-                        (phone_form.check_box :cracked_screen) + "¿Tiene la pantalla rota?" %>
-                  </div>
-                </div>
               <% end %>
             </div>
 
             <div class="specific-input" data-type="laptop">
               <%= fields_for 'laptop' do |laptop_form| %>
                 <h6>Marca</h6>
-                <%= laptop_form.text_field :brand,
-                    placeholder: "Marca", class: "form-control" %>
+                <%= toggleable_tag "laptop_brand", 
+                (laptop_form.text_field :brand,
+                 placeholder: "Marca", class: "form-control") %>
                 <h6>Modelo</h6>
-                <%= laptop_form.text_field :model,
-                    placeholder: "Modelo", class: "form-control" %>
+                <%= toggleable_tag "laptop_model", 
+                (laptop_form.text_field :model,
+                 placeholder: "Modelo", class: "form-control") %>
               <% end %>
             </div>
 
             <div class="specific-input" data-type="backpack">
               <%= fields_for 'backpack' do |backpack_form| %>
                 <h6>Marca</h6>
-                <%= backpack_form.text_field :brand,
-                    placeholder: "Marca", class: "form-control" %>
+                <%= toggleable_tag "backpack_brand", 
+                (backpack_form.text_field :brand,
+                 placeholder: "Marca", class: "form-control") %>
                 <h6>Tamaño</h6>
-                <%= backpack_form.text_field :size,
-                    placeholder: "Tamaño", class: "form-control" %>
+                <%= toggleable_tag "backpack_size", 
+                (backpack_form.text_field :size,
+                 placeholder: "Tamaño", class: "form-control") %>
               <% end %>
             </div>
 
             <div class="specific-input" data-type="notebook">
               <%= fields_for 'notebook' do |notebook_form| %>
                 <h6>Tipo</h6>
-                <%= notebook_form.text_field :type,
-                    placeholder: "Tipo", class: "form-control" %>
+                <%= toggleable_tag "notebook_type", 
+                (notebook_form.text_field :type,
+                 placeholder: "Tipo", class: "form-control") %>
                 <h6>Tamaño</h6>
-                <%= notebook_form.text_field :size,
-                    placeholder: "Tamaño", class: "form-control" %>
+                <%= toggleable_tag "notebook_size", 
+                (notebook_form.text_field :size,
+                 placeholder: "Tamaño", class: "form-control") %>
               <% end %>
             </div>
 
             <div class="specific-input" data-type="glasses">
               <%= fields_for 'glasses' do |glasses_form| %>
                 <h6>Marca</h6>
-                <%= glasses_form.text_field :brand,
-                    placeholder: "Marca", class: "form-control" %>
-                <div class="checkbox">
-                  <%= glasses_form.label :sunglasses,
-                      (glasses_form.check_box :sunglasses) + "¿Son lentes de sol?" %>
-                </div>
+                <%= toggleable_tag "glasses_brand", 
+                (glasses_form.text_field :brand,
+                 placeholder: "Marca", class: "form-control") %>
+
+                <%= toggleable_tag "glasses_sunglasses",
+                (content_tag :div, class: "checkbox" do
+                 glasses_form.label :sunglasses,
+                 (glasses_form.check_box :sunglasses) +
+                 "¿Son lentes de sol?"
+                 end
+                ) %>
               <% end %>
             </div>
             

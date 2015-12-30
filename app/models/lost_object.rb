@@ -18,10 +18,12 @@ class LostObject < ActiveRecord::Base
   
   # Busquedas simples
   def self.search(search)
-    where("lower(name) LIKE lower(?) 
-    OR lower(description) LIKE lower(?)",
-    "%#{search}%", 
-    "%#{search}%")
+    res = self
+    search.split.each do |w|
+      res = res.where("lower(name) LIKE lower(?) OR lower(description) LIKE lower(?)",
+                      "%#{w}%", "%#{w}%")
+    end
+    res
   end
   
   def self.types
