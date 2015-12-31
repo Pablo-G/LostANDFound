@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-1">
+      <h2>Reabrir Ticket</h2>
+      <%= form_for (@ticket ||= Ticket.new), url: reopen_ticket_path,
+                   method: :patch do |f| %>
+        <%= render 'shared/errors', object: @ticket %>
+
+        <h6>ID del ticket</h6>
+        <%= f.number_field :id,
+        :placeholder => "ID del ticket",
+        class: "form-control" %>
+
+        <h6></h6>        
+        <%= content_tag :button, :type => :submit,
+          :class => ["btn", "btn-default"] do%>
+          Reabrir
+          <% end %>
+      <% end %>
+    </div>
+    
+    <div class="col-sm-4 col-sm-offset-2">
+      <h2>Bloquear Usuario</h2>
+      <%= form_for (@user ||= User.new), url: delete_user_path,
+                   method: :delete do |f| %>
+        <%= render 'shared/errors', object: @user %>
+
+        <h6>Correo del usuario</h6>
+        <%= f.email_field :email,
+        :placeholder => "Correo del usuario",
+        class: "form-control" %>
+
+        <h6></h6>
+        <%= content_tag :button, :type => :submit,
+          :class => ["btn", "btn-default"] do%>
+          Bloquear
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

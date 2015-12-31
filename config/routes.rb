@@ -38,4 +38,10 @@ Rails.application.routes.draw do
 
   # Recuperación de contraseña
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  # Página para mods
+  get '/mods', to: 'mods#index', as: :mod_page
+  patch '/mods/reopen', to: 'mods#reopen_ticket', as: :reopen_ticket
+  delete '/mods/delete', to: 'mods#delete_user', as: :delete_user
+  
 end

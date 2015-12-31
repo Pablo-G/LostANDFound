@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def create
     # Crea un usuario nuevo con los parámetros que reciba
     @user = User.new(users_params)
+    @user.blocked = true
 
     # Intento guardar sin iniciar sesión
     if @user.save_without_session_maintenance

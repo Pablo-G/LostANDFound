@@ -7,9 +7,13 @@ class UserSessionsController < ApplicationController
   def create
     # Inicia sesión con los parámetros que recibe
     @user_session = UserSession.new(user_session_params)
+    user = User.find_by_email(user_session_params[:email])
+    if user && user.blocked
+      @user_session.errors.add :base, "Usuario bloqueado"
+      render 'pages/sign_in', locals: {user_session: @user_session} and return
+    end
 
-    if @user_session.save      
-      # Por ahora se redirige a la página de inicio del usuario que accede.
+    if @user_session.save
       redirect_back
     else
       render 'pages/sign_in', locals: {user_session: @user_session}

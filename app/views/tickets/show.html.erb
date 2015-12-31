@@ -14,22 +14,16 @@
                 Información del Ticket <br>
                 ID: <%= @ticket.id %> <br>
                 Abierto?: <%= @ticket.status %> <br>
-                 Objeto Perdido: <%= @ticket.lost_object.name %> <br>
-                 ID: <%= @ticket.lost_object.id %> <br>
+                Objeto Perdido: <%= @ticket.lost_object.name %> <br>
+                ID del objeto: <%= @ticket.lost_object.id %> <br>
                 Encontrado por: <%= @ticket.lost_object.user.name %> <br>
                 Correo Electrónico: <%= @ticket.lost_object.user.email %> <br>
                 Posible Dueño: <%= @ticket.user.name %> <br>
                 Correo Electrónico: <%= @ticket.user.email %> <br>
               </div>
             <% end %>
-        		<% @user.lost_objects.each do |lo| %>
-              <%= render lo.tickets %>
-            <% end %>
 
-            <% if @user.tickets %>
-              <%= render @user.tickets %>
-            <% end %>
-        	  <%= render @user.all_tickets %>
+            <%= render @user.all_tickets %>
         	</div>
         	<div style="width: 55%">
                 <% if @ticket.replies %>

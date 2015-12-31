@@ -1,25 +1,11 @@
 <div class="shop-menu pull-right">
+<div class="row pull-right">
   <ul class="nav navbar-nav">
-    <li>
-      <%= link_to new_lost_object_path do %>
-        <i class="fa fa-crosshairs"></i> ¿Encontraste algo?
-      <% end %>
-    </li>
     <% if current_user %>
       <li>
         <%= link_to profile_path do %>
-          <i class="fa fa-user"></i><%= current_user.name %>
+          <i class="fa fa-user"></i> <%= current_user.name %>
         <% end %>
-      </li>
-      <li>
-        <% if current_user.has_notif? %>
-        <a href="<%= tickets_path %>" class="active">
-          <i class="fa fa-exclamation-circle"></i>
-        <% else %>
-        <a href="<%= tickets_path %>">
-        <% end %>
-          <i class="fa fa-ticket"></i> Tickets
-        </a>
       </li>
       <li>
         <%= link_to sign_out_path, method: :delete do %>
@@ -34,4 +20,35 @@
       </li>
     <% end %>
   </ul>
+</div>
+
+<div class="row pull-righ">
+  
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to new_lost_object_path do %>
+        <i class="fa fa-crosshairs"></i> ¿Encontraste algo?
+      <% end %>
+    </li>
+    <% if current_user %>
+      <li>
+        <% if current_user.has_notif? %>
+          <a href="<%= tickets_path %>" class="active">
+            <i class="fa fa-exclamation-circle"></i>
+        <% else %>
+            <a href="<%= tickets_path %>">
+        <% end %>
+        <i class="fa fa-ticket"></i> Tickets
+            </a>
+      </li>
+      <% if current_user.is_mod? %>
+        <li>
+          <%= link_to mod_page_path do %>
+            <i class="fa fa-shield"></i> Moderadores
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
 </div>
