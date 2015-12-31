@@ -9,6 +9,19 @@
       	<h1 style="text-align: center">Tickets</h1>
         <div class="ticket_mess">
         	<div style="width: 45%">
+            <% if @user.is_mod? %>
+              <div>
+                Información del Ticket <br>
+                ID: <%= @ticket.id %> <br>
+                Abierto?: <%= @ticket.status %> <br>
+                 Objeto Perdido: <%= @ticket.lost_object.name %> <br>
+                 ID: <%= @ticket.lost_object.id %> <br>
+                Encontrado por: <%= @ticket.lost_object.user.name %> <br>
+                Correo Electrónico: <%= @ticket.lost_object.user.email %> <br>
+                Posible Dueño: <%= @ticket.user.name %> <br>
+                Correo Electrónico: <%= @ticket.user.email %> <br>
+              </div>
+            <% end %>
         		<% @user.lost_objects.each do |lo| %>
               <%= render lo.tickets %>
             <% end %>
@@ -41,6 +54,7 @@
                         <input name="lost_object_ow" type="hidden" value="0" />
                         <input type="checkbox" name="lost_object_ow" value="1">
                       <% else %>
+                        ¿Estas seguro?
                         <input name="lost_object_ow" type="hidden" value="0">
                       <% end %>
                       <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
@@ -48,7 +62,42 @@
                       <% end %>   
                     <% end %>
                   </div>
-                <% end %> 
+                <% end %>
+                <div id="req_Mod">
+                  <a class="btn btn-default"  onclick="callMod();">Llamar a un moderador</a>
+                </div>
+                <div id="req_ModCon">
+                  <%= form_for @report do |f| %>
+                    <input name="ticket_id" type="hidden" value=<%= @ticket.id %> />
+                    <input name="user_id" type="hidden" value=<%= current_user.id %> />
+                    <p>¿Cuál es el problema?</p>
+                    <p>
+                    <input type="radio" name="case" value="1" checked>
+                    El Ticket se cerró accidentalmente.
+                    </p>
+                    <p>
+                    <input type="radio" name="case" value="2">
+                    Conducta agresiva.
+                    </p>
+                    <p>
+                    <input type="radio" name="case" value="3">
+                    Falta de compromiso.
+                      <small>
+                        (El usuario no asiste a los encuentros/Pretende cobrar recompensa)
+                      </small>
+                    </p>
+                    <p>
+                    <input type="radio" name="case" value="4">
+                    Otro.
+                    Describe el problema:
+                    <textarea rows="3" name="message">
+                    </textarea>
+                    </p>
+                    <%= content_tag :button, :type => :submit, :class => ["btn", "btn-default"] do%>
+                      Llamar a un moderador
+                    <% end %>   
+                  <% end %>
+                </div>
         	</div>
         </div>
       </div>

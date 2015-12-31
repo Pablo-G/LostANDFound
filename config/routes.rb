@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   # Tickets
   post '/replies', to: 'tickets#create_reply'
+  post '/reports', to: 'reports#create_report'
   patch '/replies', to: 'tickets#recovered'
 
   # Verificación de usuarios

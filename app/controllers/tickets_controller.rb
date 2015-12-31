@@ -22,6 +22,7 @@ class TicketsController < ApplicationController
             @ticket.update(:new_entry => false)
           end
           @reply = Reply.new
+          @report = Report.new
     	else
     	  redirect_to root_path
     	end
