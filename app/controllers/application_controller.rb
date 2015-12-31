@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   # Los tipos aceptados son success, info, warning y danger,
   # ya sea como símbolo o como cadena
   def add_message(type, contents)
+    return unless type && contents
     flash[:messages] ||= []
     flash[:messages] << { :type => type, :contents => contents }
   end
@@ -34,8 +35,8 @@ class ApplicationController < ActionController::Base
   # Función auxiliar para recorrer los mensajes para el usuario
   # Después de recorrerlos, los limpia
   def traverse_messages
-    flash[:messages] .each do |m|
-      yield m["type"], m["contents"]
+    flash[:messages].each do |m|
+      yield m["type"]||m[:type], m["contents"]||m[:contents]
     end if flash[:messages]
     flash[:messages] = nil
   end

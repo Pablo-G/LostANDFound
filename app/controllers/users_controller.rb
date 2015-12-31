@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       # Envía correo de verificación
       @user.deliver_verification_instructions!
       
-      redirect_back
+      render 'pages/sign_in'
     else                        # Si no se guardó
       render 'pages/sign_in', locals: {user: @user}
     end
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
     if @user
       @user.verify!
     end
-    redirect_to root_url
+    redirect_back
   end
   
   private

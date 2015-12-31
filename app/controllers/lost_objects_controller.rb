@@ -83,7 +83,6 @@ class LostObjectsController < ApplicationController
 
   def destroy
     if !current_user
-      add_message_need_login
       redirect_to_login and return
     end
 
