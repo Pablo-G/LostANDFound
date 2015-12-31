@@ -23,9 +23,12 @@ class Location < ActiveRecord::Base
 
   # Genera una lista con los descendientes de este lugar
   def descendants
-    res = childs
-    childs.each do |c|
-      res = c.descendants + res
+    res = []
+    prev = [self]
+    until prev.empty? do
+      nex = Location.where(parent: prev)
+      res = res + nex
+      prev = nex
     end
     return res
   end

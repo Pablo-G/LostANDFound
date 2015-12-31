@@ -24,21 +24,19 @@ class User < ActiveRecord::Base
   end
   
   def has_notif?
-    lost_objects.each do |lo|
-      lo.tickets.each do |lti|
-        if lti.new_entry&!lti.lastReply?(self)
-          return true
-        end
-      end  
-    end
-    
-    tickets.each do |ti|
-      if ti.new_entry&!ti.lastReply?(self)
+    all_tickets.where(new_entry: true).each do |ti|
+      if !ti.lastReply?(self)
         return true
       end
     end
-
+  
     return false
+  end
+
+  # Regresa todos los tickets relacionados a este usuario
+  def all_tickets
+    (Ticket.where("lost_object_id IN (?) OR user_id = ?",
+                  lost_objects.pluck(:id), id)).includes(:replies)
   end
 
   def deliver_verification_instructions!

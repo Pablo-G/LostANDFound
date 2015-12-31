@@ -11,12 +11,7 @@ class Ticket < ActiveRecord::Base
 
   # Dice si u es el último usuario que publico una respuesta
   def lastReply?(u)
-  	if replies.last
-  		if lastReplyU == u
-  			return true
-  		end
-  	end
-  	return false
+    return replies.last && lastReplyU == u
   end
 
   private
