@@ -9,7 +9,6 @@
       	<h1 style="text-align: center">Tickets</h1>
         <div class="ticket_mess">
         	<div style="width: 45%">
-<<<<<<< HEAD
             <% if @user.is_mod? %>
               <div>
                 Información del Ticket <br>
@@ -30,10 +29,7 @@
             <% if @user.tickets %>
               <%= render @user.tickets %>
             <% end %>
-=======
         	  <%= render @user.all_tickets %>
-                  
->>>>>>> beae22b20734a4d8a2ba2579b1a01837798b3ff9
         	</div>
         	<div style="width: 55%">
                 <% if @ticket.replies %>
