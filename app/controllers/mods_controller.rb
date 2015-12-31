@@ -73,7 +73,7 @@ class ModsController < ApplicationController
     @user.tickets.delete_all
     @user.lost_objects.delete_all
     
-    # @user.blocked = true
+    @user.blocked = true
     @user.name = "X"
     @user.gender = @user.age = nil
 
