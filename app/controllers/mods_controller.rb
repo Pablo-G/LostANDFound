@@ -5,8 +5,11 @@ class ModsController < ApplicationController
   # Una página especial para moderadores
   # Redirige a login si no hay sesión o a inicio si no hay permisos
   def index
-    redirect_to_login unless current_user
-    redirect_to root_path unless current_user.is_mod?
+    if current_user
+      redirect_to root_path unless current_user.is_mod?
+    else
+      redirect_to_login unless current_user
+    end
     @user = User.new
     @ticket = Ticket.new
   end
@@ -69,14 +72,23 @@ class ModsController < ApplicationController
       render :index and return
     end
 
-    @user.replies.delete_all
-    @user.tickets.delete_all
-    @user.lost_objects.delete_all
-    
     @user.blocked = true
-    @user.name = "X"
-    @user.gender = @user.age = nil
+    @user.name = @user.name + " [USUARIO BLOQUEADO]"
 
+    @user.all_tickets.each do |ti|
+      @newReply = Reply.new
+      @ticket = ti
+      @newReply.ticket = @ticket
+      @newReply.message = "Lo sentimos, pero hemos bloqueado a este usuario por conducta agresiva."
+      @newReply.user = current_user
+      if @newReply.save
+        @ticket.update(:status => false)
+        @ticket.update(:new_entry => true)
+      else  
+        @ticket.update(:status => false)                   
+      end
+    end
+    
     @user.save
 
     add_message :success, "Usuario #{@user.email} bloqueado."
