@@ -16,8 +16,9 @@
 !/log/.keep
 /tmp
 
-# Ignore uploaded images
+# Ignore uploaded images and precompiled assets
 /public/images
+/public/assets
 
 # Ignore Gemfile.lock
 /Gemfile.lock
