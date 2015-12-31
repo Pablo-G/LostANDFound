@@ -43,5 +43,6 @@ Rails.application.routes.draw do
   get '/mods', to: 'mods#index', as: :mod_page
   patch '/mods/reopen', to: 'mods#reopen_ticket', as: :reopen_ticket
   delete '/mods/delete', to: 'mods#delete_user', as: :delete_user
+  get '/mods/closeRep', to: 'reports#closeRep'
   
 end

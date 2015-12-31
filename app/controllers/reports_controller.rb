@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     @newReport.ticket = @ticket
     @newReport.user = @user
     @newReport.status = false  # No se ha resuelto
-    @newReport.type = params[:case]
+    @newReport.incidence_type = params[:case]
     @newReport.message = params[:message]
     if @newReport.save
       add_message :info, "Listo! Un moderador revisará este Ticket lo mas pronto posible."
@@ -19,5 +19,12 @@ class ReportsController < ApplicationController
     else                     
       render :new
     end
+  end
+
+  def closeRep
+    @report = Report.find(params[:report_id])
+    @report.update(:status => true)
+    add_message :info, "Reporte marcado como resuelto."
+    redirect_to mod_page_path and return
   end
 end

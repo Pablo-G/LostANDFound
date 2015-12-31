@@ -10,7 +10,7 @@
         <div class="ticket_mess">
         	<div style="width: 45%">
             <% if @user.is_mod? %>
-              <div>
+              <div id="modinfo">
                 Información del Ticket <br>
                 ID: <%= @ticket.id %> <br>
                 Abierto?: <%= @ticket.status %> <br>

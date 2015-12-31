@@ -1,0 +1,11 @@
+<div class="report">
+    <a href="tickets/<%= report.ticket.id %>">
+        <p>Reporte: <%= report.id %></p>
+        <p>Usuario: <%= report.user.name %> (<%= report.user.email %>)</p>
+        <p>Tipo: <%= report.ITPrettyFormat %></p>
+        <p>Mensaje: <%= report.message %></p>
+        <% if !report.status %>
+        	<a class="btn btn-default" href="/mods/closeRep?report_id=<%= report.id %>">Resuleto</a>
+        <% end %>
+    </a>
+</div>

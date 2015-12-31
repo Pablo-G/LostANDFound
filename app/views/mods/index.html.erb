@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  Moderador
+<% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-4 col-sm-offset-1">
@@ -39,3 +43,29 @@
     </div>
   </div>
 </div>
+
+<section id="form">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-sm-offset-1">
+        <h2 style="text-align: center">Reportes</h2>
+        <div>
+          <h4 style="text-align: center">Sin resolver...</h4>
+          <% Report.all.each do |rep| %>
+            <% if !rep.status %>
+              <%= render rep %>
+            <% end %>
+          <% end %>
+        </div>
+        <div>
+          <h4 style="text-align: center">Resueltos</h4>
+          <% Report.all.each do |rep| %>
+            <% if rep.status %>
+              <%= render rep %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
