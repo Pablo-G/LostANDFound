@@ -5,7 +5,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', '0.12.2', platforms: :ruby
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'authlogic'
 gem 'paperclip'
 gem 'active_record-acts_as'
