@@ -7,8 +7,16 @@
     <div class="row">
       <div class="col-sm-3">
 	<div class="left-sidebar">
-          <h2>Búsqueda avanzada</h2>
+          
+          <h2>Opciones</h2>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle"
+                    data-toggle="collapse" data-target="#search-collapse">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
 
+          <div class="collapse navbar-collapse" id="search-collapse">
           <%= form_tag(lost_objects_path, :method => "get",
                        id: "advanced-search-form") do %>
             
@@ -34,8 +42,8 @@
               <%= select_tag :actable_type,
               options_for_select(LostObject.types,
                                  @search_options[:actable_type] || :other),
-                  class: ["form-control", "type-selector"],
-                      disabled: true %>
+                                 class: ["form-control", "type-selector"],
+                                     disabled: true %>
             </div>
 
             <div class="specific-input" data-type="phone">
@@ -48,7 +56,7 @@
                 <h6>Modelo</h6>
                 <%= toggleable_tag "phone_model",
                 (phone_form.text_field :model,
-                      placeholder: "Modelo", class: "form-control") %>
+                 placeholder: "Modelo", class: "form-control") %>
                 
                 <h6>Compañía telefónica:</h6>
                 <%= toggleable_tag "phone_company",
@@ -64,7 +72,7 @@
 
                 <%= toggleable_tag "phone_cracked_screen",
                 (content_tag :div, class: "checkbox" do
-                   phone_form.label :cracked_screen,
+                 phone_form.label :cracked_screen,
                  (phone_form.check_box :cracked_screen) +
                  "¿Tiene la pantalla rota?"
                  end
@@ -130,7 +138,8 @@
             </div>
             
           <% end %>
-          
+
+        </div>
         </div>
       </div>
 

@@ -13,21 +13,17 @@
       </li>
       <li>
         <% if current_user.has_notif? %>
-        <a href="/tickets" style="color: #FFA500">
+        <a href="<%= tickets_path %>" class="active">
           <i class="fa fa-exclamation-circle"></i>
-          <i class="fa fa-ticket"></i>
-          Tickets
-        </a>
         <% else %>
-        <a href="/tickets">
-          <i class="fa fa-ticket"></i>
-          Tickets
-        </a>
+        <a href="<%= tickets_path %>">
         <% end %>
+          <i class="fa fa-ticket"></i> Tickets
+        </a>
       </li>
       <li>
         <%= link_to sign_out_path, method: :delete do %>
-          Cerrar sesión
+          <i class="fa fa-unlock"></i> Cerrar sesión
         <% end %>
       </li>
     <% else %>
